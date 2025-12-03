@@ -721,14 +721,14 @@ function initMap() {
 }
 
 function createMap() {
-  const map = L.map('map').setView([59.9925, 29.7758], 16);
+  const map = L.map('map').setView([59.9875, 29.7600], 16);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors',
     maxZoom: 19
   }).addTo(map);
   
-  L.marker([59.9925, 29.7758]).addTo(map)
-    .bindPopup('<b>Музей военной и морской славы</b><br>Кронштадт, ул. Петровская, 1')
+  L.marker([59.9875, 29.7600]).addTo(map)
+    .bindPopup('<b>Музей "Воинско-морской славы России"</b><br>Кронштадт, ул. Цитадельское шоссе, 18')
     .openPopup();
 }
 
@@ -823,3 +823,4 @@ document.head.appendChild(styleSheet);
 </body>
 
 </html>
+
