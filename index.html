@@ -692,14 +692,6 @@ target="_blank" class="buy-ticket-btn"
 onclick="countClick()">Купить билет</a>
 </div>
 
-<!-- Один счетчик с надписью "билетов уже приобретено" -->
-<div class="single-counter">
-<div class="stat-number" id="ticketCounter">0</div>
-<div class="stat-label">билетов уже приобретено</div>
-</div>
-</div>
-</header>
-
 <main>
 <section class="about-section" style="padding:80px 20px;max-width:1300px;margin:0 auto;">
 <!-- Заголовок с анимированной полосочкой -->
@@ -743,17 +735,6 @@ target="_blank" class="text-link"
 style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);">konyukhov.ru</a>
 </p>
 
-<p
-style="margin-top:20px;font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
-<strong>Также Вы можете посмотреть, как проходила наша выставка в Ростове-на-Дону:</strong>
-<a href="https://artspacerostov.ru/" target="_blank"
-class="text-link"
-style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);">artspacerostov.ru</a>
-</p>
-</div>
-</div>
-</section>
-
 <!-- НОВЫЙ БЛОК "Что вас ждет" с увеличенными окошками -->
 <section class="expectations-section" data-aos="fade-up">
 <!-- Заголовок с анимированной полосочкой -->
@@ -765,7 +746,7 @@ style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold
 <div class="expectations-container">
 <div class="expectation-card" onclick="toggleExpectation(1)">
 <h3>Подлинные полотна художника</h3>
-<p>Более 50 оригинальных картин Фёдора Конюхова</p>
+<p>Более 100 оригинальных картин Фёдора Конюхова</p>
 </div>
 
 <div class="expectation-card" onclick="toggleExpectation(2)">
@@ -879,7 +860,9 @@ style="text-align:center;margin-top:20px;color:rgba(248,245,240,0.8);">
 <div
 style="font-size:clamp(0.9rem,1.5vw,1.1rem);line-height:1.6;margin-bottom:40px;color:rgba(248,245,240,0.9);">
 <p>Кронштадт, ул. Цитадельское шоссе, 18</p>
-<p style="margin-top:10px;">Ежедневно с 12:00 до 22:00</p>
+<p style="margin-top:10px;">ГРАФИК РАБОТЫ:</p>
+<p style="margin-top:10px;">ПН: выходной; ВТ - ВС: с 10:00 до 19:00 (работа кассы: до 18:00)</p>
+
 <p
 style="margin-top:10px;font-size:0.9rem;color:rgba(136,170,204,0.8);">
 По вопросам сотрудничества: +79381612468
@@ -902,7 +885,8 @@ class="social-link" title="Сайт выставки в Ростове-на-До
 <i class="fas fa-external-link-alt"></i>
 </a>
 
-<a href="#" class="social-link" title="Телеграм (канал в разработке)" onclick="event.preventDefault(); alert('Телеграм-канал в разработке');">
+<a href="https://vk.com/kronshtadtkonyukhov?from=groups" target="_blank"
+class="social-link" title="Телеграм">
 <i class="fab fa-telegram"></i>
 </a>
 </div>
@@ -1299,4 +1283,5 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 
 </body>
 </html>
+
 
