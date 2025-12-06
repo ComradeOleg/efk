@@ -668,6 +668,11 @@ body {
       <a href="https://mvms.tn-cloud.ru/event/DA09C5B33464E62FDF718FC56D5FDC27E0C3C819/2025-12-04" target="_blank" class="buy-ticket-btn" onclick="countClick()">Купить билет</a>
     </div>
     
+    <!-- Один счетчик с надписью "билетов уже приобретено" -->
+    <div class="single-counter">
+      <div class="stat-number" id="ticketCounter">0</div>
+      <div class="stat-label">билетов уже приобретено</div>
+    </div>
   </div>
 </header>
 
@@ -700,6 +705,10 @@ body {
         <p style="margin-top:40px;font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
           <strong>Здесь Вы можете посмотреть работы путешественника:</strong> 
           <a href="https://konyukhov.ru/projects/paintings/?ysclid=mip2f9irtt746212813" target="_blank" class="text-link" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);">konyukhov.ru</a>
+        </p>
+        <p style="margin-top:20px;font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
+          <strong>Также Вы можете посмотреть, как проходила наша выставка в Ростове-на-Дону:</strong> 
+          <a href="https://artspacerostov.ru/" target="_blank" class="text-link" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);">artspacerostov.ru</a>
         </p>
       </div>
     </div>
@@ -794,7 +803,7 @@ body {
       <div id="map"></div>
       <div style="text-align:center;margin-top:20px;color:rgba(248,245,240,0.8);">
         <p>г. Кронштадт, ул. Цитадельское шоссе, 18</p>
-        <p style="margin-top:10px;">Музей "Воинско-морской славы России"</p>
+        <p style="margin-top:10px;">Музей военной и морской славы</p>
       </div>
     </div>
   </section>
@@ -802,17 +811,13 @@ body {
 
 <footer style="background:#060f1a;padding:80px 20px;text-align:center;">
   <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2rem);color:var(--light-gold);margin-bottom:30px;line-height:1.3;">
-    Фёдор Конюхов «Путешествие длиною в жизнь»
+    Фёдор Конюхов «Путь к счастью»
   </div>
   <div style="font-size:clamp(0.9rem,1.5vw,1.1rem);line-height:1.6;margin-bottom:40px;color:rgba(248,245,240,0.9);">
-    <p>г. Кронштадт, ул. Цитадельское шоссе, 18</p>
-    <p style="margin-top:10px;"> </p>
-    <p style="margin-top:10px;">ГРАФИК РАБОТЫ: с 25.12.25 по 10.05.2026</p>
-    <p style="margin-top:10px;">ВТ - ВС с 10:00 до 19:00;</p>
-    <p style="margin-top:10px;">ПН: выходной</p>
-
+    <p>Кронштадт, ул. Цитадельское шоссе, 18</p>
+    <p style="margin-top:10px;">Ежедневно с 12:00 до 22:00</p>
     <p style="margin-top:10px;font-size:0.9rem;color:rgba(136,170,204,0.8);">
-      По всем вопросам звоните: +79381612468
+      По вопросам сотрудничества: +79381612468
     </p>
   </div>
   
@@ -1145,7 +1150,7 @@ function createMap() {
   }).addTo(map);
   
   L.marker([59.9875, 29.7600]).addTo(map)
-    .bindPopup('<b>Музей "Воинско-морской славы России"</b><br>г. Кронштадт, ул. Цитадельское шоссе, 18')
+    .bindPopup('<b>Музей "Воинско-морской славы России"</b><br>Кронштадт, ул. Цитадельское шоссе, 18')
     .openPopup();
 }
 
