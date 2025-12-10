@@ -1,1284 +1,1417 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фёдор Конюхов «Путешествие длиною в жизнь» • Иммерсивная выставка в Кронштадте</title>
-    <meta name="description" content="Иммерсивная выставка Фёдора Конюхова «Путешествие длиною в жизнь». Кронштадт, 2025-2026.">
-
-    <!-- Предзагрузка критических ресурсов -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://unpkg.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-
-    <!-- Подключение шрифта Sail -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Viaoda+Libre&display=swap" rel="stylesheet">
-
-    <!-- Inline критический CSS -->
-    <style>
-        :root {
-            --dark-navy: #0a1520;
-            --deep-blue: #0d1b2a;
-            --ocean-deep: #08121e;
-            --gold: #d4af37;
-            --light-gold: #f4e8c1;
-            --warm-white: #f8f5f0;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #0a1520;
-            color: var(--warm-white);
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* Стили для плавного размытия фона */
-        .hero-header {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        /* Фон с размытием при скролле */
-        .hero-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0;
-            animation: fadeInBg 1.5s ease 0.3s forwards;
-            background:
-                linear-gradient(rgba(10, 21, 32, 0.85), rgba(10, 21, 32, 0.9)),
-                url('https://konyukhov.ru/wp-content/uploads/2021/03/MG_8309s.jpg') center/cover no-repeat;
-            transition: filter 1.2s ease-out;
-        }
-
-        .hero-header.scrolled .hero-background {
-            filter: blur(8px) brightness(0.7);
-        }
-
-        @keyframes fadeInBg {
-            to { opacity: 1; }
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            width: 100%;
-            padding: 20px;
-            z-index: 2;
-            position: relative;
-        }
-
-        /* Заголовок с новым шрифтом Sail */
-        .handwriting {
-            font-family: "Spectral SC", serif;
-            font-weight: 300;
-            font-style: normal;
-            font-size: clamp(1.8rem, 5vw, 2.8rem);
-            color: var(--light-gold);
-            margin-bottom: 20px;
-            line-height: 0.85;
-            font-weight: 400;
-            letter-spacing: 1px;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-        }
-
-        .handwriting .line {
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        .handwriting span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-
-        /* Ускоренная анимация букв */
-        @keyframes write {
-            0% { opacity:0; transform:translateY(40px) rotate(-5deg) scale(0.9); }
-            60% { transform:translateY(-8px) rotate(2deg) scale(1.05); }
-            100% { opacity:1; transform:translateY(0) rotate(0) scale(1); }
-        }
-
-        /* Для мобильных устройств */
-        @media (max-width: 768px) {
-            .handwriting {
-                font-size: clamp(2.2rem, 6vw, 3.5rem);
-                line-height: 0.9;
-                margin-bottom: 10px;
-                letter-spacing: 0.2px;
-            }
-            
-            .handwriting .line {
-                margin-bottom: -6px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .handwriting {
-                font-size: clamp(2.5rem, 11vw, 4rem);
-                line-height: 0.9;
-                letter-spacing: 0.3px;
-            }
-            
-            .handwriting .line {
-                margin-bottom: -10px;
-            }
-        }
-
-        /* Основные стили текста */
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-            margin: 20px 0 30px;
-            opacity: 0;
-            animation: fadeIn 0.4s 1.5s forwards;
-            font-weight: 300;
-        }
-
-        .date-location {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--gold);
-            margin-bottom: 40px;
-            opacity: 0;
-            animation: fadeIn 0.4s 1.7s forwards;
-            font-weight: 400;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        /* Кнопка */
-        .buy-ticket-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--gold), var(--light-gold));
-            color: #0b1828;
-            padding: 16px 50px;
-            border-radius: 50px;
-            font-size: clamp(1.1rem, 1.8vw, 1.3rem);
-            font-weight: 700;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            opacity: 0;
-            animation: fadeIn 0.4s 1.9s forwards;
-        }
-
-        .buy-ticket-btn:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Ссылки */
-        .text-link {
-            color: var(--gold);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s ease;
-        }
-
-        .text-link:hover {
-            border-bottom-color: var(--gold);
-        }
-
-        /* Скрыть невидимые элементы */
-        [data-aos] {
-            opacity: 0;
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        [data-aos].aos-animate {
-            opacity: 1;
-            transform: none;
-        }
-
-        /* Стили для заголовков с анимированной полосочкой */
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            text-align: center;
-            color: var(--light-gold);
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .title-line {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            width: 0;
-            margin: 15px auto 0;
-            transition: width 1s ease-out;
-            position: relative;
-            opacity: 0;
-            transform: scaleX(0);
-            transform-origin: center;
-        }
-
-        .section-title.in-view .title-line {
-            opacity: 1;
-            transform: scaleX(1);
-            width: min(60%, 400px);
-        }
-
-        /* Слайдер */
-        .slider-container {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-
-        .slider {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .slide {
-            min-width: 100%;
-            height: 500px;
-            position: relative;
-        }
-
-        .slider-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            color: var(--light-gold);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: background 0.3s ease;
-            z-index: 10;
-        }
-
-        .slider-nav:hover {
-            background: rgba(0,0,0,0.8);
-        }
-
-        .prev { left: 20px; }
-        .next { right: 20px; }
-
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(212,175,55,0.3);
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .dot.active {
-            background: var(--gold);
-        }
-
-        .more-images {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 1.1rem;
-            color: rgba(248,245,240,0.9);
-        }
-
-        /* Карта */
-        #map {
-            height: 400px;
-            border-radius: 15px;
-            border: 2px solid var(--gold);
-            margin-top: 20px;
-        }
-
-        /* Контейнер для изображения перед текстом */
-        .hero-image-container {
-            margin-bottom: 60px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            position: relative;
-        }
-
-        .hero-image-container .img-placeholder {
-            height: 500px;
-            width: 100%;
-            background-position: center 30% !important;
-            background-size: cover !important;
-        }
-
-        /* Социальные сети */
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 50px;
-            margin-bottom: 30px;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            color: var(--light-gold);
-            font-size: 1.5rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(212,175,55,0.3);
-        }
-
-        .social-link:hover {
-            background: var(--gold);
-            color: #0b1828;
-            transform: translateY(-5px);
-            border-color: var(--gold);
-        }
-
-        .social-placeholder {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: rgba(136, 170, 204, 0.7);
-        }
-
-        /* Стили для однородных иконок */
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--gold);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 80px;
-        }
-
-        .feature-icon i {
-            font-size: 2.5rem;
-        }
-
-        /* Стили для карточек с эксклюзивными возможностями */
-        .feature-card {
-            background: rgba(255,255,255,0.03);
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid rgba(212,175,55,0.2);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(212,175,55,0.05), rgba(244,232,193,0.05));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 0;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            border-color: var(--gold);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4),
-                        0 0 0 1px rgba(212,175,55,0.1),
-                        0 0 30px rgba(212,175,55,0.2);
-            background: rgba(255,255,255,0.05);
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1);
-            text-shadow: 0 0 20px rgba(212,175,55,0.5);
-        }
-
-        .feature-card:hover h3 {
-            color: var(--gold);
-            text-shadow: 0 0 10px rgba(212,175,55,0.3);
-        }
-
-        .feature-icon, .feature-card h3, .feature-card p {
-            position: relative;
-            z-index: 1;
-            transition: all 0.4s ease;
-        }
-
-        .feature-card h3 {
-            transition: color 0.4s ease, text-shadow 0.4s ease;
-        }
-
-        .feature-card:hover .feature-icon i {
-            filter: drop-shadow(0 0 8px rgba(212,175,55,0.6));
-        }
-
-        /* НОВЫЙ БЛОК "Что вас ждет" - увеличенные окошки */
-        .expectations-section {
-            padding: 80px 20px;
-            background: rgba(13, 27, 42, 0.5);
-        }
-
-        .expectations-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .expectation-card {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 50px 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            height: 220px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .expectation-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(244, 232, 193, 0.08));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 0;
-        }
-
-        .expectation-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
-                        0 0 0 1px rgba(212, 175, 55, 0.15),
-                        0 0 25px rgba(212, 175, 55, 0.15);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .expectation-card:hover::before {
-            opacity: 1;
-        }
-
-        .expectation-card h3 {
-            font-size: 1.5rem;
-            color: var(--light-gold);
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .expectation-card p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: rgba(248, 245, 240, 0.9);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Адаптация для мобильных */
-        @media (max-width: 1024px) {
-            .expectation-card {
-                height: 200px;
-                padding: 40px 30px;
-            }
-            .expectation-card h3 {
-                font-size: 1.4rem;
-            }
-            .expectation-card p {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .expectations-container {
-                grid-template-columns: 1fr;
-                gap: 25px;
-                max-width: 600px;
-            }
-            .expectation-card {
-                height: 180px;
-                padding: 35px 25px;
-            }
-            .expectation-card h3 {
-                font-size: 1.3rem;
-                margin-bottom: 15px;
-            }
-            .expectation-card p {
-                font-size: 0.95rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .expectation-card {
-                height: 160px;
-                padding: 30px 20px;
-            }
-            .expectation-card h3 {
-                font-size: 1.2rem;
-            }
-            .expectation-card p {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* График работы */
-        .schedule-section {
-            background: rgba(8, 18, 30, 0.7);
-            padding: 50px 20px;
-            margin-top: 40px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .schedule-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.8rem, 3vw, 2.2rem);
-            color: var(--light-gold);
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .schedule-content {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(13, 27, 42, 0.5);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .schedule-item {
-            margin-bottom: 25px;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .schedule-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .schedule-icon {
-            color: var(--gold);
-            font-size: 1.3rem;
-            margin-right: 20px;
-            margin-top: 3px;
-        }
-
-        .schedule-text {
-            flex: 1;
-        }
-
-        .schedule-text p {
-            margin-bottom: 8px;
-            color: rgba(248, 245, 240, 0.95);
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .schedule-text p:last-child {
-            margin-bottom: 0;
-        }
-
-        .schedule-highlight {
-            color: var(--light-gold);
-            font-weight: 600;
-        }
-
-        /* Скелетоны для изображений */
-        .img-placeholder {
-            background: linear-gradient(90deg, #0d1b2a 25%, #15273d 50%, #0d1b2a 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-            border-radius: 20px;
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .hero-header { min-height: 90vh; }
-            .slider-container { max-width: 100%; }
-            .slide { height: 400px; }
-            .slider-nav { width: 40px; height: 40px; font-size: 1.2rem; }
-            .feature-card { padding: 30px 20px; }
-            .hero-image-container .img-placeholder { height: 400px; }
-            .social-links { gap: 20px; }
-            .social-link { width: 45px; height: 45px; font-size: 1.3rem; }
-            #map { height: 350px; }
-            .schedule-content { padding: 30px 25px; }
-        }
-
-        @media (max-width: 480px) {
-            .hero-header { min-height: 85vh; padding: 15px; }
-            .buy-ticket-btn { padding: 14px 35px; font-size: 1rem; }
-            .slide { height: 300px; }
-            .slider-nav { width: 35px; height: 35px; font-size: 1rem; }
-            .hero-image-container .img-placeholder { height: 300px; }
-            .social-links { gap: 15px; margin-top: 30px; }
-            .social-link { width: 40px; height: 40px; font-size: 1.2rem; }
-            #map { height: 300px; }
-            .schedule-content { padding: 25px 20px; }
-            .schedule-item { flex-direction: column; }
-            .schedule-icon { margin-bottom: 10px; margin-right: 0; }
-        }
-    </style>
-
-    <!-- Отложенная загрузка остальных стилей -->
-    <link rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-          as="style" onload="this.onload=null;this.rel='stylesheet'">
-
-    <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    </noscript>
-
-    <!-- Дефер загрузка AOS и Leaflet -->
-    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-
-    <noscript>
-        <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    </noscript>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Фёдор Конюхов «Путешествие длиною в жизнь» • Иммерсивная
+выставка в Кронштадте</title>
+<meta name="description" content="Иммерсивная выставка Фёдора
+Конюхова «Путешествие длиною в жизнь». Кронштадт, 2025-2026.">
+
+<!-- Предзагрузка критических ресурсов -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com"
+crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+<!-- Подключение шрифта Sail -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com"
+crossorigin>
+<link
+href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Viaoda+Libre&display=swap"
+rel="stylesheet">
+
+<!-- Inline критический CSS -->
+<style>
+:root {
+    --dark-navy: #0a1520;
+    --deep-blue: #0d1b2a;
+    --ocean-deep: #08121e;
+    --gold: #d4af37;
+    --light-gold: #f4e8c1;
+    --warm-white: #f8f5f0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #0a1520;
+    color: var(--warm-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Стили для плавного размытия фона */
+.hero-header {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Фон с размытием при скролле */
+.hero-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0;
+    animation: fadeInBg 1.5s ease 0.3s forwards;
+    background:
+    linear-gradient(rgba(10, 21, 32, 0.85), rgba(10, 21, 32, 0.9)),
+    url('https://konyukhov.ru/wp-content/uploads/2021/03/MG_8309s.jpg') center/cover no-repeat;
+    transition: filter 1.2s ease-out;
+}
+
+.hero-header.scrolled .hero-background {
+    filter: blur(8px) brightness(0.7);
+}
+
+@keyframes fadeInBg {
+    to { opacity: 1; }
+}
+
+.hero-content {
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+/* Заголовок с новым шрифтом Sail */
+.handwriting {
+    font-family: "Spectral SC", serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: clamp(4rem, 9vw, 7rem);
+    color: var(--light-gold);
+    margin-bottom: 20px;
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+.handwriting .line {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.handwriting span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+/* Ускоренная анимация букв */
+@keyframes write {
+    0% { opacity:0; transform:translateY(40px) rotate(-5deg) scale(0.9); }
+    60% { transform:translateY(-8px) rotate(2deg) scale(1.05); }
+    100% { opacity:1; transform:translateY(0) rotate(0) scale(1); }
+}
+
+/* ОСНОВНОЕ ИЗМЕНЕНИЕ: уменьшаем только "ПУТЕШЕСТВИЕ" на мобильных */
+@media (max-width: 768px) {
+    .handwriting {
+        font-size: clamp(3.2rem, 9vw, 5rem);
+        line-height: 0.95;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+    }
+    
+    .handwriting .line {
+        margin-bottom: -12px;
+        white-space: nowrap; /* Запрещаем перенос строк */
+        overflow-x: auto;    /* Добавляем горизонтальный скролл, если не влезает */
+        padding-bottom: 5px; /* Отступ для скролла */
+        justify-content: center;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    
+    /* Класс для уменьшения только первого слова */
+    .handwriting .smaller-word {
+        font-size: 0.75em; /* Уменьшаем "ПУТЕШЕСТВИЕ" на 25% */
+        display: inline-block;
+    }
+}
+
+@media (max-width: 480px) {
+    .handwriting {
+        font-size: clamp(2.7rem, 10vw, 4rem);
+        line-height: 0.9;
+        letter-spacing: 0.3px;
+    }
+    
+    .handwriting .line {
+        margin-bottom: -10px;
+    }
+    
+    .handwriting .smaller-word {
+        font-size: 0.7em; /* Еще немного уменьшаем для очень маленьких экранов */
+    }
+}
+
+/* Основные стили текста */
+.hero-subtitle {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    margin: 20px 0 30px;
+    opacity: 0;
+    animation: fadeIn 0.4s 1.5s forwards;
+    font-weight: 300;
+}
+
+.date-location {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--gold);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeIn 0.4s 1.7s forwards;
+    font-weight: 400;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Кнопка */
+.buy-ticket-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), var(--light-gold));
+    color: #0b1828;
+    padding: 16px 50px;
+    border-radius: 50px;
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.4s 1.9s forwards;
+}
+
+.buy-ticket-btn:hover {
+    transform: translateY(-5px);
+}
+
+/* Ссылки */
+.text-link {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.text-link:hover {
+    border-bottom-color: var(--gold);
+}
+
+/* Скрыть невидимые элементы */
+[data-aos] {
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+    transform: none;
+}
+
+/* Стили для заголовков с анимированной полосочкой */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    text-align: center;
+    color: var(--light-gold);
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.title-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold),
+    transparent);
+    width: 0;
+    margin: 15px auto 0;
+    transition: width 1s ease-out;
+    position: relative;
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+}
+
+.section-title.in-view .title-line {
+    opacity: 1;
+    transform: scaleX(1);
+    width: min(60%, 400px);
+}
+
+/* Слайдер */
+.slider-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    height: 500px;
+    position: relative;
+}
+
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: var(--light-gold);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+.slider-nav:hover {
+    background: rgba(0,0,0,0.8);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(212,175,55,0.3);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.dot.active {
+    background: var(--gold);
+}
+
+.more-images {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1.1rem;
+    color: rgba(248,245,240,0.9);
+}
+
+/* КАРТА YANDEX - ОСНОВНОЕ ИЗМЕНЕНИЕ */
+#map-yandex {
+    height: 400px;
+    border-radius: 15px;
+    border: 2px solid var(--gold);
+    margin-top: 20px;
+}
+
+/* Контейнер для изображения перед текстом */
+.hero-image-container {
+    margin-bottom: 60px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.hero-image-container .img-placeholder {
+    height: 500px;
+    width: 100%;
+    background-position: center 30% !important;
+    background-size: cover !important;
+}
+
+/* Социальные сети */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: var(--light-gold);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(212,175,55,0.3);
+}
+
+.social-link:hover {
+    background: var(--gold);
+    color: #0b1828;
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+.social-placeholder {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: rgba(136, 170, 204, 0.7);
+}
+
+/* Стили для однородных иконок */
+.feature-icon {
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+}
+
+.feature-icon i {
+    font-size: 2.5rem;
+}
+
+/* Стили для карточек с эксклюзивными возможностями */
+.feature-card {
+    background: rgba(255,255,255,0.03);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(212,175,55,0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(212,175,55,0.05),
+    rgba(244,232,193,0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+
+.feature-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    border-color: var(--gold);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4),
+    0 0 0 1px rgba(212,175,55,0.1),
+    0 0 30px rgba(212,175,55,0.2);
+    background: rgba(255,255,255,0.05);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+    text-shadow: 0 0 20px rgba(212,175,55,0.5);
+}
+
+.feature-card:hover h3 {
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(212,175,55,0.3);
+}
+
+.feature-icon, .feature-card h3, .feature-card p {
+    position: relative;
+    z-index: 1;
+    transition: all 0.4s ease;
+}
+
+.feature-card h3 {
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.feature-card:hover .feature-icon i {
+    filter: drop-shadow(0 0 8px rgba(212,175,55,0.6));
+}
+
+/* НОВЫЙ БЛОК "Что вас ждет" - увеличенные окошки */
+.expectations-section {
+    padding: 80px 20px;
+    background: rgba(13, 27, 42, 0.5);
+}
+
+.expectations-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.expectation-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 50px 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.expectation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(244,
+    232, 193, 0.08));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+
+.expectation-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(212, 175, 55, 0.15),
+    0 0 25px rgba(212, 175, 55, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.expectation-card:hover::before {
+    opacity: 1;
+}
+
+.expectation-card h3 {
+    font-size: 1.5rem;
+    color: var(--light-gold);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.expectation-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(248, 245, 240, 0.9);
+    position: relative;
+    z-index: 1;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 1024px) {
+    .expectation-card {
+        height: 200px;
+        padding: 40px 30px;
+    }
+    
+    .expectation-card h3 {
+        font-size: 1.4rem;
+    }
+    
+    .expectation-card p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .expectations-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        max-width: 600px;
+    }
+    
+    .expectation-card {
+        height: 180px;
+        padding: 35px 25px;
+    }
+    
+    .expectation-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+    
+    .expectation-card p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .expectation-card {
+        height: 160px;
+        padding: 30px 20px;
+    }
+    
+    .expectation-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .expectation-card p {
+        font-size: 0.9rem;
+    }
+}
+
+/* График работы */
+.schedule-section {
+    background: rgba(8, 18, 30, 0.7);
+    padding: 50px 20px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.schedule-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    color: var(--light-gold);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.schedule-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(13, 27, 42, 0.5);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.schedule-item {
+    margin-bottom: 25px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.schedule-item:last-child {
+    margin-bottom: 0;
+}
+
+.schedule-icon {
+    color: var(--gold);
+    font-size: 1.3rem;
+    margin-right: 20px;
+    margin-top: 3px;
+}
+
+.schedule-text {
+    flex: 1;
+}
+
+.schedule-text p {
+    margin-bottom: 8px;
+    color: rgba(248, 245, 240, 0.95);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.schedule-text p:last-child {
+    margin-bottom: 0;
+}
+
+.schedule-highlight {
+    color: var(--light-gold);
+    font-weight: 600;
+}
+
+/* Скелетоны для изображений */
+.img-placeholder {
+    background: linear-gradient(90deg, #0d1b2a 25%, #15273d 50%, #0d1b2a
+    75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 20px;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero-header { min-height: 90vh; }
+    .slider-container { max-width: 100%; }
+    .slide { height: 400px; }
+    .slider-nav { width: 40px; height: 40px; font-size: 1.2rem; }
+    .feature-card { padding: 30px 20px; }
+    .hero-image-container .img-placeholder { height: 400px; }
+    .social-links { gap: 20px; }
+    .social-link { width: 45px; height: 45px; font-size: 1.3rem; }
+    #map-yandex { height: 350px; }
+    .schedule-content { padding: 30px 25px; }
+}
+
+@media (max-width: 480px) {
+    .hero-header { min-height: 85vh; padding: 15px; }
+    .buy-ticket-btn { padding: 14px 35px; font-size: 1rem; }
+    .slide { height: 300px; }
+    .slider-nav { width: 35px; height: 35px; font-size: 1rem; }
+    .hero-image-container .img-placeholder { height: 300px; }
+    .social-links { gap: 15px; margin-top: 30px; }
+    .social-link { width: 40px; height: 40px; font-size: 1.2rem; }
+    #map-yandex { height: 300px; }
+    .schedule-content { padding: 25px 20px; }
+    .schedule-item { flex-direction: column; }
+    .schedule-icon { margin-bottom: 10px; margin-right: 0; }
+}
+</style>
+
+<!-- Отложенная загрузка остальных стилей -->
+<link rel="preload"
+href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<noscript>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+</noscript>
+
+<!-- Дефер загрузка AOS и Leaflet -->
+<link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<link rel="preload"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style"
+onload="this.onload=null;this.rel='stylesheet'">
+
+<noscript>
+    <link rel="stylesheet"
+    href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</noscript>
+
 </head>
+
 <body>
-    <header class="hero-header">
-        <!-- Фон с плавным размытием -->
-        <div class="hero-background"></div>
-        <div class="hero-content">
-            <!-- Заголовок с новым шрифтом Sail -->
-            <h1 class="handwriting">
-                <span class="line">
-                    <span>П</span><span>У</span><span>Т</span><span>Е</span><span>Ш</span><span>Е</span><span>С</span><span>Т</span><span>В</span><span>ИЕ</span>
-                    <span> </span>
-                    <span>Д</span><span>Л</span><span>И</span><span>Н</span><span>О</span><span>Ю</span>
-                    <span> </span>
-                    <span>В</span>
-                    <span> </span>
-                    <span>Ж</span><span>И</span><span>З</span><span>Н</span><span>Ь</span>
+
+<header class="hero-header">
+    <!-- Фон с плавным размытием -->
+    <div class="hero-background"></div>
+    <div class="hero-content">
+        <!-- Заголовок с новым шрифтом Sail -->
+        <h1 class="handwriting">
+            <span class="line">
+                <!-- Слово "ПУТЕШЕСТВИЕ" с классом для уменьшения на мобильных -->
+                <span class="smaller-word">
+                    <span>П</span><span>У</span><span>Т</span><span>Е</span><span>Ш</span><span>Е</span><span>С</span><span>Т</span><span>В</span><span>И</span><span>Е</span>
                 </span>
-            </h1>
-            <div class="title-line"
-                 style="height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);width:0;margin:20px auto 30px;animation:line 1s 1.2s forwards;"></div>
-            <p class="hero-subtitle">Пять залов с подлинными полотнами и интерактивными комнатами</p>
-            <div class="date-location">
-                25 декабря 2025 • г. Кронштадт, "Музей Военно-морской славы России"
-            </div>
-            <div class="btn-wrapper" style="margin:30px 0 40px;">
-                <a href="https://mvms.tn-cloud.ru/event/DA09C5B33464E62FDF718FC56D5FDC27E0C3C819/2025-12-04"
-                   target="_blank" class="buy-ticket-btn">Купить билет</a>
+                <span> </span>
+                <span>Д</span><span>Л</span><span>И</span><span>Н</span><span>О</span><span>Ю</span>
+                <span> </span>
+                <span>В</span>
+                <span> </span>
+                <span>Ж</span><span>И</span><span>З</span><span>Н</span><span>Ь</span>
+            </span>
+        </h1>
+        <div class="title-line"
+        style="height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);width:0;margin:20px
+        auto 30px;animation:line 1s 1.2s forwards;"></div>
+        <p class="hero-subtitle">Пять залов с подлинными полотнами и
+        интерактивными комнатами</p>
+        <div class="date-location">
+        25 декабря 2025 • г. Кронштадт, Музей "Воинско-морской славы России"
+        </div>
+        <div class="btn-wrapper" style="margin:30px 0 40px;">
+            <!-- ОСНОВНОЕ ИЗМЕНЕНИЕ: обновлённая ссылка на покупку билетов -->
+            <a
+            href="https://mvms.tn-cloud.ru/event/60497AD0387B2DAB3C42426D09C304FC433FD41C/2025-12-25"
+            target="_blank" class="buy-ticket-btn">Купить билет</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="about-section" style="padding:80px
+    20px;max-width:1300px;margin:0 auto;">
+        <!-- Заголовок с анимированной полосочкой -->
+        <h2 class="section-title" data-aos="fade-up" id="legend-title">
+            Легенда океанов
+            <div class="title-line"></div>
+        </h2>
+        <div class="hero-image-container" data-aos="fade-up">
+            <div class="img-placeholder" id="heroImage"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr;gap:60px;">
+            <div class="about-text" data-aos="fade-up"
+            style="font-family:'Inter',sans-serif;">
+                <p
+                style="margin-bottom:1.5em;font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
+                <strong style="color:var(--light-gold);font-weight:600;">Фёдор
+                Конюхов</strong> --- человек, который превратил одиночество в
+                философию, а океан -- в храм. Первый в мире, кто достиг пяти полюсов
+                нашей планеты: Северного и Южного географических, Полюса относительной
+                недоступности в Северном Ледовитом океане, Эвереста (полюс высоты) и
+                мыса Горн (полюс яхтсменов).
+                </p>
+                <p
+                style="margin-bottom:2em;font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
+                Он пересёк Атлантический океан на вёсельной лодке за рекордные 46 суток,
+                совершил кругосветное плавание на яхте, прошёл на собачьих упряжках к
+                Северному полюсу и совершил одиночный полёт вокруг света на воздушном
+                шаре.
+                </p>
+                <div class="quote" style="font-family:'Playfair
+                Display',serif;font-style:italic;font-size:clamp(1.2rem,2vw,1.5rem);color:var(--light-gold);padding:40px;border-left:3px
+                solid var(--gold);background:rgba(212,175,55,0.05);margin:40px
+                0;border-radius:0 15px 15px 0;line-height:1.5;">
+                    «Счастье -- это когда ты находишься в гармонии с собой и миром. Океан
+                    научил меня этому -- в его бескрайних просторах исчезает всё лишнее,
+                    остаётся только суть»
+                </div>
+                <p
+                style="font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
+                За свою жизнь Фёдор провёл в океанах более 1000 дней, написал более 3000
+                картин и 17 книг. Его картины -- не просто изображения моря, а
+                отпечатки души человека, который смотрел в глаза штормам и находил в них
+                покой.
+                </p>
+                <p
+                style="margin-top:40px;font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
+                <strong>Здесь Вы можете посмотреть работы путешественника:</strong>
+                <a
+                href="https://konyukhov.ru/projects/paintings/?ysclid=mip2f9irtt746212813"
+                target="_blank" class="text-link"
+                style="color:var(--gold);text-decoration:none;border-bottom:1px solid
+                var(--gold);">konyukhov.ru</a>
+                </p>
             </div>
         </div>
-    </header>
-
-    <main>
-        <section class="about-section" style="padding:80px 20px;max-width:1300px;margin:0 auto;">
-            <!-- Заголовок с анимированной полосочкой -->
-            <h2 class="section-title" data-aos="fade-up" id="legend-title">
-                Легенда океанов
-                <div class="title-line"></div>
-            </h2>
-            <div class="hero-image-container" data-aos="fade-up">
-                <div class="img-placeholder" id="heroImage"></div>
+    </section>
+    
+    <!-- НОВЫЙ БЛОК "Что вас ждет" с увеличенными окошками -->
+    <section class="expectations-section" data-aos="fade-up">
+        <!-- Заголовок с анимированной полосочкой -->
+        <h2 class="section-title" id="expectations-title">
+            Что вас ждет
+            <div class="title-line"></div>
+        </h2>
+        <div class="expectations-container">
+            <div class="expectation-card" onclick="toggleExpectation(1)">
+                <h3>Подлинные полотна художника</h3>
+                <p>Более 100 оригинальных картин Фёдора Конюхова</p>
             </div>
-            <div style="display:grid;grid-template-columns:1fr;gap:60px;">
-                <div class="about-text" data-aos="fade-up" style="font-family:'Inter',sans-serif;">
-                    <p style="margin-bottom:1.5em;font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
-                        <strong style="color:var(--light-gold);font-weight:600;">Фёдор Конюхов</strong> - человек, который превратил одиночество в философию, а океан - в храм. Первый в мире, кто достиг пяти полюсов нашей планеты: Северного и Южного географических, Полюса относительной недоступности в Северном Ледовитом океане, Эвереста (полюс высоты) и мыса Горн (полюс яхтсменов).
-                    </p>
-                    <p style="margin-bottom:2em;font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
-                        Он пересёк Атлантический океан на вёсельной лодке за рекордные 46 суток, совершил кругосветное плавание на яхте, прошёл на собачьих упряжках к Северному полюсу и совершил одиночный полёт вокруг света на воздушном шаре.
-                    </p>
-                    <div class="quote" style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.2rem,2vw,1.5rem);color:var(--light-gold);padding:40px;border-left:3px solid var(--gold);background:rgba(212,175,55,0.05);margin:40px 0;border-radius:0 15px 15px 0;line-height:1.5;">
-                        «Счастье - это когда ты находишься в гармонии с собой и миром. Океан научил меня этому - в его бескрайних просторах исчезает всё лишнее, остаётся только суть»
-                    </div>
-                    <p style="font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
-                        За свою жизнь Фёдор провёл в океанах более 1000 дней, написал более 3000 картин и 17 книг. Его картины - не просто изображения моря, а отпечатки души человека, который смотрел в глаза штормам и находил в них покой.
-                    </p>
-                    <p style="margin-top:40px;font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;color:rgba(248,245,240,0.9);">
-                        <strong>Здесь Вы можете посмотреть работы путешественника:</strong>
-                        <a href="https://konyukhov.ru/projects/paintings/?ysclid=mip2f9irtt746212813"
-                           target="_blank" class="text-link"
-                           style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);">konyukhov.ru</a>
-                    </p>
-                </div>
+            <div class="expectation-card" onclick="toggleExpectation(2)">
+                <h3>Интерактивные комнаты</h3>
+                <p>Погружение в атмосферу морских путешествий</p>
             </div>
-        </section>
-
-        <!-- НОВЫЙ БЛОК "Что вас ждет" с увеличенными окошками -->
-        <section class="expectations-section" data-aos="fade-up">
-            <!-- Заголовок с анимированной полосочкой -->
-            <h2 class="section-title" id="expectations-title">
-                Что вас ждет
-                <div class="title-line"></div>
-            </h2>
-            <div class="expectations-container">
-                <div class="expectation-card" onclick="toggleExpectation(1)">
-                    <h3>Подлинные полотна художника</h3>
-                    <p>Более 120 оригинальных картин Фёдора Конюхова</p>
-                </div>
-                <div class="expectation-card" onclick="toggleExpectation(2)">
-                    <h3>Интерактивные комнаты</h3>
-                    <p>Погружение в атмосферу морских путешествий</p>
-                </div>
-                <div class="expectation-card" onclick="toggleExpectation(3)">
-                    <h3>Фотозоны</h3>
-                    <p>Уникальные локации для памятных снимков</p>
-                </div>
-                <div class="expectation-card" onclick="toggleExpectation(4)">
-                    <h3>5 тематических залов</h3>
-                    <p>Каждый зал - новые эмоции и впечатления</p>
-                </div>
+            <div class="expectation-card" onclick="toggleExpectation(3)">
+                <h3>Фотозоны</h3>
+                <p>Уникальные локации для памятных снимков</p>
             </div>
-        </section>
-
-        <section class="gallery-section" style="padding:80px 20px;background:rgba(13,27,42,0.3);">
-            <!-- Заголовок с анимированной полосочкой -->
-            <h2 class="section-title" data-aos="fade-up" id="gallery-title">
-                Галерея
-                <div class="title-line"></div>
-            </h2>
-            <div class="slider-container" data-aos="fade-up">
-                <div class="slider" id="imageSlider">
-                    <!-- Слайды будут добавлены через JavaScript -->
-                </div>
-                <button class="slider-nav prev" onclick="prevSlide()">‹</button>
-                <button class="slider-nav next" onclick="nextSlide()">›</button>
-                <div class="slider-dots" id="sliderDots"></div>
+            <div class="expectation-card" onclick="toggleExpectation(4)">
+                <h3>5 тематических залов</h3>
+                <p>Каждый зал -- новые эмоции и впечатления</p>
             </div>
-            <div class="more-images" data-aos="fade-up">
-                Больше изображений Вы можете посмотреть <a href="https://artfedor.ru/" target="_blank" class="text-link">здесь</a>
-            </div>
-        </section>
-
-        <section class="features-section" style="padding:80px 20px;max-width:1400px;margin:0 auto;">
-            <!-- Заголовок с анимированной полосочкой -->
-            <h2 class="section-title" data-aos="fade-up" id="features-title">
-                Эксклюзивные возможности
-                <div class="title-line"></div>
-            </h2>
-            <div class="features-container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:40px;">
-                <div class="feature-card" data-aos="fade-up">
-                    <div class="feature-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3 style="font-size:1.3rem;color:var(--light-gold);margin-bottom:15px;">Розыгрыш книг с автографом</h3>
-                    <p style="font-size:0.95rem;line-height:1.6;color:rgba(248,245,240,0.9);">Каждый билет - это шанс получить уникальное издание с личным автографом Фёдора Конюхова.</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <h3 style="font-size:1.3rem;color:var(--light-gold);margin-bottom:15px;">#КонюховКронштадт</h3>
-                    <p style="font-size:0.95rem;line-height:1.6;color:rgba(248,245,240,0.9);">Публикуйте фото с выставки с нашим хештегом и получите эксклюзивный сувенир.</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-icon">
-                        <i class="fas fa-microphone-alt"></i>
-                    </div>
-                    <h3 style="font-size:1.3rem;color:var(--light-gold);margin-bottom:15px;">Аудиогид от автора</h3>
-                    <p style="font-size:0.95rem;line-height:1.6;color:rgba(248,245,240,0.9);">Экскурсия в формате аудиорассказа от самого Фёдора Конюхова.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="map-section" style="padding:80px 20px;max-width:1300px;margin:0 auto;">
-            <!-- Заголовок с анимированной полосочкой -->
-            <h2 class="section-title" data-aos="fade-up" id="map-title">
-                Место проведения
-                <div class="title-line"></div>
-            </h2>
-            <div data-aos="fade-up">
-                <div id="map"></div>
-                <div style="text-align:center;margin-top:20px;color:rgba(248,245,240,0.8);">
-                    <p>г. Кронштадт, ул. Цитадельское шоссе, 18</p>
-                    <p style="margin-top:10px;">Музей «Военно-морской славы России»</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- НОВЫЙ БЛОК: График работы выставки -->
-        <section class="schedule-section" data-aos="fade-up">
-            <h3 class="schedule-title">График работы выставки</h3>
-            <div class="schedule-content">
-                <div class="schedule-item">
-                    <div class="schedule-icon">
-                        <i class="far fa-calendar-alt"></i>
-                    </div>
-                    <div class="schedule-text">
-                        <p><span class="schedule-highlight">Даты проведения:</span> 25 декабря 2025 - 10 мая 2026</p>
-                    </div>
-                </div>
-                <div class="schedule-item">
-                    <div class="schedule-icon">
-                        <i class="far fa-clock"></i>
-                    </div>
-                    <div class="schedule-text">
-                        <p><span class="schedule-highlight">Часы работы:</span> с 10:00 до 19:00</p>
-                        <p>Касса работает: до 18:00</p>
-                    </div>
-                </div>
-                <div class="schedule-item">
-                    <div class="schedule-icon">
-                        <i class="far fa-calendar-times"></i>
-                    </div>
-                    <div class="schedule-text">
-                        <p><span class="schedule-highlight">Рабочие дни:</span> Вторник - Воскресенье</p>
-                        <p><span class="schedule-highlight">Выходной день:</span> Понедельник</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer style="background:#060f1a;padding:80px 20px;text-align:center;">
-        <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2rem);color:var(--light-gold);margin-bottom:30px;line-height:1.3;">
-            Фёдор Конюхов «Путешествие длиною в жизнь»
         </div>
-        <div style="font-size:clamp(0.9rem,1.5vw,1.1rem);line-height:1.6;margin-bottom:40px;color:rgba(248,245,240,0.9);">
-            <p>г. Кронштадт, ул. Цитадельское шоссе, 18</p>
-            <p style="margin-top:10px;font-size:0.9rem;color:rgba(136,170,204,0.8);">
-                По всем вопросам звоните: +79381612468
-            </p>
+    </section>
+    
+    <section class="gallery-section" style="padding:80px
+    20px;background:rgba(13,27,42,0.3);">
+        <!-- Заголовок с анимированной полосочкой -->
+        <h2 class="section-title" data-aos="fade-up" id="gallery-title">
+            Галерея
+            <div class="title-line"></div>
+        </h2>
+        <div class="slider-container" data-aos="fade-up">
+            <div class="slider" id="imageSlider">
+                <!-- Слайды будут добавлены через JavaScript -->
+            </div>
+            <button class="slider-nav prev" onclick="prevSlide()">‹</button>
+            <button class="slider-nav next" onclick="nextSlide()">›</button>
+            <div class="slider-dots" id="sliderDots"></div>
         </div>
-        <a href="https://mvms.tn-cloud.ru/event/DA09C5B33464E62FDF718FC56D5FDC27E0C3C819/2025-12-04"
-           target="_blank" class="buy-ticket-btn" style="margin-bottom:50px;">Купить билет</a>
-        <div class="social-links">
-            <a href="https://vk.com/kronshtadtkonyukhov?from=groups" target="_blank" class="social-link" title="ВКонтакте">
-                <i class="fab fa-vk"></i>
-            </a>
-            <a href="https://t.me/kronshtadtkonyukhov" target="_blank" class="social-link" title="Телеграм">
-                <i class="fab fa-telegram"></i>
-            </a>
-            <a href="https://artspacerostov.ru/" target="_blank" class="social-link" title="Сайт выставки в Ростове-на-Дону">
-                <i class="fas fa-external-link-alt"></i>
-            </a>
+        <div class="more-images" data-aos="fade-up">
+            Больше изображений Вы можете посмотреть <a
+            href="https://artfedor.ru/" target="_blank"
+            class="text-link">здесь</a>
         </div>
-        <div class="social-placeholder">
-            Присоединяйтесь к нашим сообществам!
+    </section>
+    
+    <section class="features-section" style="padding:80px
+    20px;max-width:1400px;margin:0 auto;">
+        <!-- Заголовок с анимированной полосочкой -->
+        <h2 class="section-title" data-aos="fade-up"
+        id="features-title">
+            Эксклюзивные возможности
+            <div class="title-line"></div>
+        </h2>
+        <div class="features-container"
+        style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:40px;">
+            <div class="feature-card" data-aos="fade-up">
+                <div class="feature-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3
+                style="font-size:1.3rem;color:var(--light-gold);margin-bottom:15px;">Розыгрыш
+                книг с автографом</h3>
+                <p
+                style="font-size:0.95rem;line-height:1.6;color:rgba(248,245,240,0.9);">Каждый
+                билет -- это шанс получить уникальное издание с личным автографом
+                Фёдора Конюхова.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up"
+            data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3
+                style="font-size:1.3rem;color:var(--light-gold);margin-bottom:15px;">#КонюховКронштадт</h3>
+                <p
+                style="font-size:0.95rem;line-height:1.6;color:rgba(248,245,240,0.9);">Публикуйте
+                фото с выставки с нашим хештегом и получите эксклюзивный сувенир.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up"
+            data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-microphone-alt"></i>
+                </div>
+                <h3
+                style="font-size:1.3rem;color:var(--light-gold);margin-bottom:15px;">Аудиогид
+                от автора</h3>
+                <p
+                style="font-size:0.95rem;line-height:1.6;color:rgba(248,245,240,0.9);">Экскурсия
+                в формате аудиорассказа от самого Фёдора Конюхова.</p>
+            </div>
         </div>
-        <p style="color:#88aacc;font-size:0.9rem;max-width:600px;margin:30px auto 0;line-height:1.6;padding-top:20px;border-top:1px solid rgba(136,170,204,0.2);">
-            © 2025 Иммерсивная выставка Фёдора Конюхова «Путешествие длиною в жизнь». Все права защищены.
+    </section>
+    
+    <section class="map-section" style="padding:80px
+    20px;max-width:1300px;margin:0 auto;">
+        <!-- Заголовок с анимированной полосочкой -->
+        <h2 class="section-title" data-aos="fade-up" id="map-title">
+            Место проведения
+            <div class="title-line"></div>
+        </h2>
+        <div data-aos="fade-up">
+            <!-- ОСНОВНОЕ ИЗМЕНЕНИЕ: Яндекс.Карта вместо Leaflet -->
+            <div id="map-yandex"></div>
+            <div
+            style="text-align:center;margin-top:20px;color:rgba(248,245,240,0.8);">
+                <p>г. Кронштадт, ул. Цитадельское шоссе, 18</p>
+                <p style="margin-top:10px;">Музей «Воинско-морской славы
+                России»</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- НОВЫЙ БЛОК: График работы выставки -->
+    <section class="schedule-section" data-aos="fade-up">
+        <h3 class="schedule-title">График работы выставки</h3>
+        <div class="schedule-content">
+            <div class="schedule-item">
+                <div class="schedule-icon">
+                    <i class="far fa-calendar-alt"></i>
+                </div>
+                <div class="schedule-text">
+                    <p><span class="schedule-highlight">Даты проведения:</span> 25
+                    декабря 2025 -- 10 мая 2026</p>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-icon">
+                    <i class="far fa-clock"></i>
+                </div>
+                <div class="schedule-text">
+                    <p><span class="schedule-highlight">Часы работы:</span> с 10:00
+                    до 19:00</p>
+                    <p>Касса работает: до 18:00</p>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-icon">
+                    <i class="far fa-calendar-times"></i>
+                </div>
+                <div class="schedule-text">
+                    <p><span class="schedule-highlight">Рабочие дни:</span> Вторник
+                    -- Воскресенье</p>
+                    <p><span class="schedule-highlight">Выходной день:</span>
+                    Понедельник</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer style="background:#060f1a;padding:80px
+20px;text-align:center;">
+    <div style="font-family:'Playfair
+    Display',serif;font-size:clamp(1.5rem,3vw,2rem);color:var(--light-gold);margin-bottom:30px;line-height:1.3;">
+        Фёдор Конюхов «Путь к счастью»
+    </div>
+    <div
+    style="font-size:clamp(0.9rem,1.5vw,1.1rem);line-height:1.6;margin-bottom:40px;color:rgba(248,245,240,0.9);">
+        <p>г. Кронштадт, ул. Цитадельское шоссе, 18</p>
+        <p
+        style="margin-top:10px;font-size:0.9rem;color:rgba(136,170,204,0.8);">
+        По всем вопросам звоните: +79381612468
         </p>
-    </footer>
+    </div>
+    <!-- ОСНОВНОЕ ИЗМЕНЕНИЕ: обновлённая ссылка на покупку билетов (вторая) -->
+    <a
+    href="https://mvms.tn-cloud.ru/event/60497AD0387B2DAB3C42426D09C304FC433FD41C/2025-12-25"
+    target="_blank" class="buy-ticket-btn"
+    style="margin-bottom:50px;">Купить билет</a>
+    <div class="social-links">
+        <a href="https://vk.com/kronshtadtkonyukhov?from=groups"
+        target="_blank" class="social-link" title="ВКонтакте">
+            <i class="fab fa-vk"></i>
+        </a>
+        <a href="https://t.me/kronshtadtkonyukhov" target="_blank"
+        class="social-link" title="Телеграм">
+            <i class="fab fa-telegram"></i>
+        </a>
+        <a href="https://artspacerostov.ru/" target="_blank"
+        class="social-link" title="Сайт выставки в Ростове-на-Дону">
+            <i class="fas fa-external-link-alt"></i>
+        </a>
+    </div>
+    <div class="social-placeholder">
+        Присоединяйтесь к нашим сообществам!
+    </div>
+    <p style="color:#88aacc;font-size:0.9rem;max-width:600px;margin:30px
+    auto 0;line-height:1.6;padding-top:20px;border-top:1px solid
+    rgba(136,170,204,0.2);">
+        © 2025 Иммерсивная выставка Фёдора Конюхова «Путешествие длиною в
+        жизнь». Все права защищены.
+    </p>
+</footer>
 
-    <!-- Ленивая загрузка JavaScript -->
-    <script>
-        // Функция для открытия/закрытия всплывающих окон "Что вас ждет"
-        function toggleExpectation(index) {
-            const titles = [
-                "Подлинные полотна художника",
-                "Интерактивные комнаты",
-                "Фотозоны",
-                "5 тематических залов"
-            ];
-            const descriptions = [
-                "Уникальная коллекция из более чем 50 оригинальных картин Фёдора Конюхова, созданных во время его экспедиций. Каждое полотно рассказывает историю встречи с океаном, штормами и бескрайними просторами. Особое внимание привлекают картины, написанные в открытом море.",
-                "Специально оборудованные пространства, где вы сможете почувствовать себя участником экспедиции. Воссозданная каюта яхты, симулятор шторма, компасная комната и другие интерактивные элементы позволят полностью погрузиться в атмосферу морских приключений.",
-                "Несколько тематических фотозон, где каждый посетитель может сделать памятные снимки: у штурвала яхты, с экспедиционным снаряжением, на фоне картин-гигантов. Все фотозоны оформлены в морской тематике с использованием настоящих элементов снаряжения.",
-                "Каждый из пяти залов посвящен отдельному этапу жизни и экспедициям Фёдора Конюхова: Зал Океана, Зал Полярных экспедиций, Зал Воздухоплавания, Зал Живописи и Зал Философии. Переходя из зала в зал, вы пройдете весь путь великого путешественника."
-            ];
+<!-- Ленивая загрузка JavaScript -->
+<script>
+// Функция для открытия/закрытия всплывающих окон "Что вас ждет"
+function toggleExpectation(index) {
+    const titles = [
+        "Подлинные полотна художника",
+        "Интерактивные комнаты",
+        "Фотозоны",
+        "5 тематических залов"
+    ];
+    const descriptions = [
+        "Уникальная коллекция из более чем 50 оригинальных картин Фёдора Конюхова, созданных во время его экспедиций. Каждое полотно рассказывает историю встречи с океаном, штормами и бескрайними просторами. Особое внимание привлекают картины, написанные в открытом море.",
+        "Специально оборудованные пространства, где вы сможете почувствовать себя участником экспедиции. Воссозданная каюта яхты, симулятор шторма, компасная комната и другие интерактивные элементы позволят полностью погрузиться в атмосферу морских приключений.",
+        "Несколько тематических фотозон, где каждый посетитель может сделать памятные снимки: у штурвала яхты, с экспедиционным снаряжением, на фоне картин-гигантов. Все фотозоны оформлены в морской тематике с использованием настоящих элементов снаряжения.",
+        "Каждый из пяти залов посвящен отдельному этапу жизни и экспедициям Фёдора Конюхова: Зал Океана, Зал Полярных экспедиций, Зал Воздухоплавания, Зал Живописи и Зал Философии. Переходя из зала в зал, вы пройдете весь путь великого путешественника."
+    ];
 
-            // Создаем модальное окно
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.9);
+    // Создаем модальное окно
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        animation: fadeInModal 0.3s ease forwards;
+        padding: 20px;
+    `;
+    modal.innerHTML = `
+        <div style="
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(8, 18, 30, 0.98));
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        ">
+            <button onclick="this.parentElement.parentElement.remove()" style="
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: none;
+                border: none;
+                color: var(--gold);
+                font-size: 2.5rem;
+                cursor: pointer;
+                width: 50px;
+                height: 50px;
                 display: flex;
-                justify-content: center;
                 align-items: center;
-                z-index: 1000;
-                opacity: 0;
-                animation: fadeInModal 0.3s ease forwards;
-                padding: 20px;
-            `;
-            modal.innerHTML = `
-                <div style="
-                    background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(8, 18, 30, 0.98));
-                    border: 2px solid var(--gold);
-                    border-radius: 20px;
-                    padding: 50px 40px;
-                    max-width: 700px;
-                    width: 100%;
-                    max-height: 80vh;
-                    overflow-y: auto;
-                    position: relative;
-                    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-                ">
-                    <button onclick="this.parentElement.parentElement.remove()" style="
-                        position: absolute;
-                        top: 20px;
-                        right: 20px;
-                        background: none;
-                        border: none;
-                        color: var(--gold);
-                        font-size: 2.5rem;
-                        cursor: pointer;
-                        width: 50px;
-                        height: 50px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        border-radius: 50%;
-                        transition: background 0.3s;
-                    ">×</button>
-                    <h3 style="
-                        color: var(--light-gold);
-                        font-family: 'Playfair Display', serif;
-                        font-size: clamp(1.8rem, 3vw, 2.3rem);
-                        margin-bottom: 30px;
-                        text-align: center;
-                    ">${titles[index-1]}</h3>
-                    <p style="
-                        color: rgba(248, 245, 240, 0.95);
-                        line-height: 1.8;
-                        font-size: clamp(1.1rem, 1.8vw, 1.3rem);
-                        margin-bottom: 40px;
-                    ">${descriptions[index-1]}</p>
-                    <div style="text-align: center;">
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
-                            background: linear-gradient(135deg, var(--gold), var(--light-gold));
-                            color: #0b1828;
-                            border: none;
-                            padding: 15px 50px;
-                            border-radius: 50px;
-                            font-weight: 600;
-                            cursor: pointer;
-                            transition: transform 0.3s;
-                            font-size: 1.1rem;
-                        ">Закрыть</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
+                justify-content: center;
+                border-radius: 50%;
+                transition: background 0.3s;
+            ">×</button>
+            <h3 style="
+                color: var(--light-gold);
+                font-family: 'Playfair Display', serif;
+                font-size: clamp(1.8rem, 3vw, 2.3rem);
+                margin-bottom: 30px;
+                text-align: center;
+            ">${titles[index-1]}</h3>
+            <p style="
+                color: rgba(248, 245, 240, 0.95);
+                line-height: 1.8;
+                font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+                margin-bottom: 40px;
+            ">${descriptions[index-1]}</p>
+            <div style="text-align: center;">
+                <button
+                onclick="this.parentElement.parentElement.parentElement.remove()"
+                style="
+                    background: linear-gradient(135deg, var(--gold), var(--light-gold));
+                    color: #0b1828;
+                    border: none;
+                    padding: 15px 50px;
+                    border-radius: 50px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: transform 0.3s;
+                    font-size: 1.1rem;
+                ">Закрыть</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
 
-            // Добавляем стиль для анимации
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes fadeInModal {
-                    to { opacity: 1; }
-                }
-            `;
-            document.head.appendChild(style);
+    // Добавляем стиль для анимации
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeInModal {
+            to { opacity: 1; }
         }
+    `;
+    document.head.appendChild(style);
+}
 
-        // Функция для анимации полосочек под заголовками
-        function animateTitleLines() {
-            const sectionTitles = document.querySelectorAll('.section-title');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                    } else {
-                        entry.target.classList.remove('in-view');
-                    }
-                });
-            }, {
-                threshold: 0.3,
-                rootMargin: '0px 0px -100px 0px'
-            });
-            sectionTitles.forEach(title => {
-                observer.observe(title);
-            });
-        }
-
-        // Обработчик скролла для размытия фона
-        let lastScrollTop = 0;
-        const heroHeader = document.querySelector('.hero-header');
-        const background = document.querySelector('.hero-background');
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > 50) {
-                heroHeader.classList.add('scrolled');
-                const blurAmount = Math.min(12, 8 + (scrollTop - lastScrollTop) * 0.5);
-                background.style.filter = `blur(${blurAmount}px) brightness(0.7)`;
+// Функция для анимации полосочек под заголовками
+function animateTitleLines() {
+    const sectionTitles = document.querySelectorAll('.section-title');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
             } else {
-                heroHeader.classList.remove('scrolled');
-                background.style.filter = 'none';
+                entry.target.classList.remove('in-view');
             }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        }, { passive: true });
+        });
+    }, {
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
+    });
+    sectionTitles.forEach(title => {
+        observer.observe(title);
+    });
+}
 
-        // Переменные для слайдера
-        let currentSlide = 0;
-        let slides = [];
-        let slider;
-        let dotsContainer;
+// Обработчик скролла для размытия фона
+let lastScrollTop = 0;
+const heroHeader = document.querySelector('.hero-header');
+const background = document.querySelector('.hero-background');
 
-        // ИЗОБРАЖЕНИЯ ДЛЯ СЛАЙДЕРА
-        const sliderImages = [
-            'https://static.tildacdn.com/tild3536-3831-4534-b365-376633656361/01092023_168__-min_1.jpg',
-            'https://konyukhov.ru/wp-content/uploads/2024/03/K1fLp51eAUY.jpg',
-            'https://static.tildacdn.com/tild3631-3962-4236-a164-393132396532/0fbpt38uwui-2.jpg',
-            'https://rostovchanka-media.ru/images/news-1/konvistrostov17.jpg',
-            'https://konyukhov.ru/wp-content/uploads/2024/03/a6LfTUoAvzo.jpg',
-            'https://cdnstatic.rg.ru/uploads/images/181/32/95/lodka__kopiia.jpg',
-            'https://kudamoscow.ru/uploads/0bb6b83698594c793be0f04116b38261.jpg',
-            'https://riavrn.ru/media/archive/image/2022/09/vN0JZ13cdr2bTVUznMaAGNAK_hm1ROxn.jpg'
-        ];
+window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset ||
+    document.documentElement.scrollTop;
+    if (scrollTop > 50) {
+        heroHeader.classList.add('scrolled');
+        const blurAmount = Math.min(12, 8 + (scrollTop - lastScrollTop) * 0.5);
+        background.style.filter = `blur(${blurAmount}px) brightness(0.7)`;
+    } else {
+        heroHeader.classList.remove('scrolled');
+        background.style.filter = 'none';
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+}, { passive: true });
 
-        // Инициализация слайдера
-        function initSlider() {
-            slider = document.getElementById('imageSlider');
-            dotsContainer = document.getElementById('sliderDots');
-            
-            // Создаем слайды
-            sliderImages.forEach((imgUrl, index) => {
-                const slide = document.createElement('div');
-                slide.className = 'slide';
-                slide.innerHTML = `
-                    <div class="img-placeholder" style="height:100%;" data-src="${imgUrl}"></div>
-                `;
-                slider.appendChild(slide);
-                slides.push(slide);
+// Переменные для слайдера
+let currentSlide = 0;
+let slides = [];
+let slider;
+let dotsContainer;
 
-                // Создаем точки
-                const dot = document.createElement('button');
-                dot.className = 'dot' + (index === 0 ? ' active' : '');
-                dot.setAttribute('onclick', `goToSlide(${index})`);
-                dotsContainer.appendChild(dot);
-            });
+// ИЗОБРАЖЕНИЯ ДЛЯ СЛАЙДЕРА
+const sliderImages = [
+    'https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_667efc7f47b77a027f3a71fa_667efc8e47b77a027f3a7af0/scale_1200',
+    'https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_667efc7f47b77a027f3a71fa_667efc8e47b77a027f3a7af1/scale_1200',
+    'https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_667efc7f47b77a027f3a71fa_667efc8e47b77a027f3a7af3/scale_1200',
+    'https://rostovchanka-media.ru/images/news-1/konvistrostov17.jpg',
+    'https://konyukhov.ru/wp-content/uploads/2024/03/a6LfTUoAvzo.jpg',
+    'https://cdnstatic.rg.ru/uploads/images/181/32/95/lodka__kopiia.jpg',
+    'https://kudamoscow.ru/uploads/0bb6b83698594c793be0f04116b38261.jpg',
+    'https://riavrn.ru/media/archive/image/2022/09/vN0JZ13cdr2bTVUznMaAGNAK_hm1ROxn.jpg'
+];
 
-            // Автоматическое перелистывание
-            setInterval(() => {
-                nextSlide();
-            }, 5000);
-
-            // Ленивая загрузка изображений
-            lazyLoadImages();
-        }
-
-        // Функции слайдера
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateSlider();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            updateSlider();
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlider();
-        }
-
-        function updateSlider() {
-            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-            // Обновляем активную точку
-            document.querySelectorAll('.dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
-        }
-
-        // Загрузка главного изображения
-        function loadHeroImage() {
-            const heroImage = document.getElementById('heroImage');
-            if (heroImage) {
-                const img = new Image();
-                img.src = 'https://storage.yandexcloud.net/storage.yasno.media/nat-geo/images/2024/10/31/6e48becd01e94e5bab00737ac4676ebb.max-2500x1500.jpg';
-                img.onload = function() {
-                    heroImage.style.backgroundImage = `url(${img.src})`;
-                    heroImage.style.backgroundSize = 'cover';
-                    heroImage.style.backgroundPosition = 'center 30%';
-                    heroImage.style.animation = 'none';
-                };
-                img.onerror = function() {
-                    heroImage.style.backgroundImage = 'linear-gradient(135deg, var(--gold), var(--light-gold))';
-                    heroImage.style.animation = 'none';
-                };
-            }
-        }
-
-        // Ленивая загрузка изображений
-        function lazyLoadImages() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        const src = img.getAttribute('data-src');
-                        if (src) {
-                            const image = new Image();
-                            image.src = src;
-                            image.onload = function() {
-                                img.style.backgroundImage = `url(${src})`;
-                                img.style.backgroundSize = 'cover';
-                                img.style.backgroundPosition = 'center';
-                                img.style.animation = 'none';
-                            };
-                            image.onerror = function() {
-                                console.log('Не удалось загрузить изображение:', src);
-                            };
-                        }
-                        observer.unobserve(img);
-                    }
-                });
-            }, { rootMargin: '50px' });
-
-            document.querySelectorAll('.img-placeholder[data-src]').forEach(img => {
-                observer.observe(img);
-            });
-        }
-
-        // Инициализация карты
-        function initMap() {
-            if (typeof L === 'undefined') {
-                const leafletCSS = document.createElement('link');
-                leafletCSS.rel = 'stylesheet';
-                leafletCSS.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-                document.head.appendChild(leafletCSS);
-                
-                const leafletScript = document.createElement('script');
-                leafletScript.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-                leafletScript.onload = function() {
-                    createMap();
-                };
-                document.head.appendChild(leafletScript);
-            } else {
-                createMap();
-            }
-        }
-
-        function createMap() {
-            const map = L.map('map').setView([59.9875, 29.7600], 16);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors',
-                maxZoom: 19
-            }).addTo(map);
-            
-            L.marker([59.9875, 29.7600]).addTo(map)
-                .bindPopup('<b>"Музей Военно-морской славы России"</b><br>Кронштадт, ул. Цитадельское шоссе, 18')
-                .openPopup();
-        }
-
-        // Главная функция инициализации
-        window.onload = function() {
-            // Анимация заголовка с новой структурой строк
-            const spans = document.querySelectorAll('.handwriting span');
-            spans.forEach((span, index) => {
-                span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${0.2 + index * 0.12}s forwards`;
-            });
-
-            // Анимация линии
-            const line = document.querySelector('.title-line');
-            line.style.animation = 'line 1s 1.2s forwards';
-
-            // Загрузка главного изображения
-            loadHeroImage();
-
-            // Инициализация слайдера
-            initSlider();
-
-            // Инициализация карты
-            initMap();
-
-            // Инициализация анимации полосочек под заголовками
-            animateTitleLines();
-
-            // Простая реализация AOS
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('aos-animate');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('[data-aos]').forEach(el => {
-                observer.observe(el);
-            });
-        };
-
-        // Ключевые стили анимации
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = `
-            @keyframes line {
-                to { width: min(80%, 600px); }
-            }
+// Инициализация слайдера
+function initSlider() {
+    slider = document.getElementById('imageSlider');
+    dotsContainer = document.getElementById('sliderDots');
+    
+    // Создаем слайды
+    sliderImages.forEach((imgUrl, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        slide.innerHTML = `
+            <div class="img-placeholder" style="height:100%;"
+            data-src="${imgUrl}"></div>
         `;
-        document.head.appendChild(styleSheet);
-    </script>
+        slider.appendChild(slide);
+        slides.push(slide);
+        
+        // Создаем точки
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (index === 0 ? ' active' : '');
+        dot.setAttribute('onclick', `goToSlide(${index})`);
+        dotsContainer.appendChild(dot);
+    });
+    
+    // Автоматическое перелистывание
+    setInterval(() => {
+        nextSlide();
+    }, 5000);
+    
+    // Ленивая загрузка изображений
+    lazyLoadImages();
+}
 
-    <!-- Дефер загрузка иконок FontAwesome -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </noscript>
+// Функции слайдера
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateSlider();
+}
+
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    updateSlider();
+}
+
+function goToSlide(index) {
+    currentSlide = index;
+    updateSlider();
+}
+
+function updateSlider() {
+    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    // Обновляем активную точку
+    document.querySelectorAll('.dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+    });
+}
+
+// Загрузка главного изображения
+function loadHeroImage() {
+    const heroImage = document.getElementById('heroImage');
+    if (heroImage) {
+        const img = new Image();
+        img.src =
+        'https://storage.yandexcloud.net/storage.yasno.media/nat-geo/images/2024/10/31/6e48becd01e94e5bab00737ac4676ebb.max-2500x1500.jpg';
+        img.onload = function() {
+            heroImage.style.backgroundImage = `url(${img.src})`;
+            heroImage.style.backgroundSize = 'cover';
+            heroImage.style.backgroundPosition = 'center 30%';
+            heroImage.style.animation = 'none';
+        };
+        img.onerror = function() {
+            heroImage.style.backgroundImage = 'linear-gradient(135deg,
+            var(--gold), var(--light-gold))';
+            heroImage.style.animation = 'none';
+        };
+    }
+}
+
+// Ленивая загрузка изображений
+function lazyLoadImages() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                const src = img.getAttribute('data-src');
+                if (src) {
+                    const image = new Image();
+                    image.src = src;
+                    image.onload = function() {
+                        img.style.backgroundImage = `url(${src})`;
+                        img.style.backgroundSize = 'cover';
+                        img.style.backgroundPosition = 'center';
+                        img.style.animation = 'none';
+                    };
+                    image.onerror = function() {
+                        console.log('Не удалось загрузить изображение:', src);
+                    };
+                }
+                observer.unobserve(img);
+            }
+        });
+    }, { rootMargin: '50px' });
+    
+    document.querySelectorAll('.img-placeholder[data-src]').forEach(img => {
+        observer.observe(img);
+    });
+}
+
+// ОСНОВНОЕ ИЗМЕНЕНИЕ: Инициализация Яндекс.Карты
+function initYandexMap() {
+    // Проверяем, есть ли уже API Яндекс.Карт
+    if (typeof ymaps === 'undefined') {
+        // Загружаем API Яндекс.Карт
+        const script = document.createElement('script');
+        script.src = 'https://api-maps.yandex.ru/2.1/?apikey=ваш_ключ_api&lang=ru_RU';
+        script.onload = function() {
+            // Инициализируем карту после загрузки API
+            ymaps.ready(createYandexMap);
+        };
+        document.head.appendChild(script);
+    } else {
+        // Если API уже загружено, сразу инициализируем карту
+        ymaps.ready(createYandexMap);
+    }
+}
+
+function createYandexMap() {
+    // Координаты музея в Кронштадте
+    const museumCoordinates = [59.9875, 29.7600];
+    
+    // Создаем карту
+    const map = new ymaps.Map('map-yandex', {
+        center: museumCoordinates,
+        zoom: 16,
+        controls: ['zoomControl', 'fullscreenControl']
+    });
+    
+    // Добавляем метку
+    const museumMarker = new ymaps.Placemark(museumCoordinates, {
+        balloonContent: '<strong>Музей "Воинско-морской славы России"</strong><br>Кронштадт, ул. Цитадельское шоссе, 18',
+        hintContent: 'Музей "Воинско-морской славы России"'
+    }, {
+        preset: 'islands#icon',
+        iconColor: '#d4af37'
+    });
+    
+    map.geoObjects.add(museumMarker);
+    
+    // Открываем балун с информацией
+    museumMarker.balloon.open();
+}
+
+// Главная функция инициализации
+window.onload = function() {
+    // Анимация заголовка с новой структурой строк
+    const spans = document.querySelectorAll('.handwriting span');
+    spans.forEach((span, index) => {
+        span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${0.2 +
+        index * 0.12}s forwards`;
+    });
+    
+    // Анимация линии
+    const line = document.querySelector('.title-line');
+    line.style.animation = 'line 1s 1.2s forwards';
+    
+    // Загрузка главного изображения
+    loadHeroImage();
+    
+    // Инициализация слайдера
+    initSlider();
+    
+    // Инициализация Яндекс.Карты вместо Leaflet
+    initYandexMap();
+    
+    // Инициализация анимации полосочек под заголовками
+    animateTitleLines();
+    
+    // Простая реализация AOS
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('aos-animate');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('[data-aos]').forEach(el => {
+        observer.observe(el);
+    });
+};
+
+// Ключевые стили анимации
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+    @keyframes line {
+        to { width: min(80%, 600px); }
+    }
+`;
+document.head.appendChild(styleSheet);
+</script>
+
+<!-- Дефер загрузка иконок FontAwesome -->
+<link rel="preload"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<noscript>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</noscript>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
