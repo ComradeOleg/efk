@@ -987,14 +987,21 @@ function manageWordWrapping() {
   }
 }
 
-// Функция для анимации букв
+// Функция для анимации букв - ИСПРАВЛЕННАЯ ВЕРСИЯ
 function animateTitleLetters() {
-  const spans = document.querySelectorAll('.handwriting span');
+  // Выбираем только span, которые находятся внутри .word и являются непосредственными детьми
+  const letterSpans = document.querySelectorAll('.handwriting .word > span');
   let delay = 0.2;
   
-  spans.forEach((span, index) => {
-    // Пропускаем элементы с классом 'word' и 'line'
-    if (!span.classList.contains('word') && !span.classList.contains('line')) {
+  letterSpans.forEach((span, index) => {
+    span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${delay}s forwards`;
+    delay += 0.12;
+  });
+  
+  // Также анимируем отдельные буквы "В" и пробелы
+  const otherSpans = document.querySelectorAll('.handwriting .line2 > span:not(.word)');
+  otherSpans.forEach((span, index) => {
+    if (span.textContent.trim() !== '') { // Анимируем только непустые span
       span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${delay}s forwards`;
       delay += 0.12;
     }
@@ -1302,7 +1309,7 @@ window.onload = function() {
   // Управление переносами слов
   manageWordWrapping();
   
-  // Запускаем анимацию
+  // Запускаем анимацию - ТЕПЕРЬ БУДЕТ РАБОТАТЬ
   animateTitleLetters();
   
   // Анимация линии
@@ -1349,7 +1356,6 @@ styleSheet.textContent = `
 `;
 document.head.appendChild(styleSheet);
 </script>
-
 <!-- Дефер загрузка иконок FontAwesome -->
 <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
@@ -1358,3 +1364,4 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
+
