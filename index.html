@@ -92,6 +92,7 @@ body {
 }
 
 /* Заголовок с новым шрифтом Sail */
+/* Заголовок с новым шрифтом Sail */
 .handwriting {
   font-family: "Spectral SC", serif;
   font-weight: 300;
@@ -109,6 +110,11 @@ body {
 .handwriting .line {
   display: block;
   margin-bottom: 20px;
+}
+
+/* Увеличиваем отступ между строками */
+.handwriting .line:first-child {
+  margin-bottom: 40px; /* Увеличили с 20px до 40px */
 }
 
 .handwriting span {
@@ -138,6 +144,10 @@ body {
     letter-spacing: 0.5px;
   }
   
+  .handwriting .line:first-child {
+    margin-bottom: 30px; /* Меньший отступ на мобильных */
+  }
+  
   .handwriting .line:first-child span {
     font-size: 0.9em; /* Меньшее уменьшение на мобильных */
   }
@@ -152,6 +162,10 @@ body {
     font-size: clamp(2.5rem, 11vw, 4rem);
     line-height: 0.9;
     letter-spacing: 0.3px;
+  }
+  
+  .handwriting .line:first-child {
+    margin-bottom: 25px; /* Ещё меньше на маленьких экранах */
   }
   
   .handwriting .line:first-child span {
@@ -1293,3 +1307,4 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
+
