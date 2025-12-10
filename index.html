@@ -123,9 +123,21 @@ body {
   transform: translateY(50px);
 }
 
-/* Уменьшаем шрифт только для первой строки (Путешествие) */
-.handwriting .line:first-child span {
+/* Объединяем буквы в слова */
+.handwriting .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Уменьшаем шрифт только для первого слова (Путешествие) */
+.handwriting .line1 .word span {
   font-size: 0.85em; /* Уменьшаем размер шрифта на 15% */
+}
+
+/* Принудительный перенос слова на новую строку */
+.handwriting .word.force-break {
+  display: block;
+  margin-top: 10px;
 }
 
 /* Ускоренная анимация букв */
@@ -148,7 +160,7 @@ body {
     margin-bottom: 30px; /* Меньший отступ на мобильных */
   }
   
-  .handwriting .line:first-child span {
+  .handwriting .line1 .word span {
     font-size: 0.9em; /* Меньшее уменьшение на мобильных */
   }
   
@@ -168,7 +180,7 @@ body {
     margin-bottom: 25px; /* Ещё меньше на маленьких экранах */
   }
   
-  .handwriting .line:first-child span {
+  .handwriting .line1 .word span {
     font-size: 0.95em; /* Ещё меньшее уменьшение на маленьких экранах */
   }
   
@@ -176,7 +188,6 @@ body {
     margin-bottom: -10px;
   }
 }
-
 /* Основные стили текста */
 .hero-subtitle {
   font-size: clamp(1.2rem, 2.5vw, 1.6rem);
@@ -741,15 +752,21 @@ body {
   <div class="hero-content">
     <!-- Заголовок с новым шрифтом Sail -->
     <h1 class="handwriting">
-      <span class="line">
-        <span>П</span><span>У</span><span>Т</span><span>Е</span><span>Ш</span><span>Е</span><span>С</span><span>Т</span><span>В</span><span>И</span><span>Е</span>
+      <span class="line line1">
+        <span class="word" data-word="ПУТЕШЕСТВИЕ">
+          <span>П</span><span>У</span><span>Т</span><span>Е</span><span>Ш</span><span>Е</span><span>С</span><span>Т</span><span>В</span><span>И</span><span>Е</span>
+        </span>
       </span>
-      <span class="line">
-        <span>Д</span><span>Л</span><span>И</span><span>Н</span><span>О</span><span>Ю</span>
+      <span class="line line2">
+        <span class="word" data-word="ДЛИННОЮ">
+          <span>Д</span><span>Л</span><span>И</span><span>Н</span><span>Н</span><span>О</span><span>Ю</span>
+        </span>
         <span> </span>
         <span>В</span>
         <span> </span>
-        <span>Ж</span><span>И</span><span>З</span><span>Н</span><span>Ь</span>
+        <span class="word" data-word="ЖИЗНЬ">
+          <span>Ж</span><span>И</span><span>З</span><span>Н</span><span>Ь</span>
+        </span>
       </span>
     </h1>
     <div class="title-line" style="height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);width:0;margin:20px auto 30px;animation:line 1s 1.2s forwards;"></div>
@@ -955,6 +972,46 @@ body {
 
 <!-- Ленивая загрузка JavaScript -->
 <script>
+// Функция для управления переносами слов
+function manageWordWrapping() {
+  const words = document.querySelectorAll('.handwriting .word');
+  
+  // Сначала сбрасываем все классы
+  words.forEach(word => {
+    word.classList.remove('force-break');
+  });
+  
+  // Проверяем каждое слово во второй строке
+  const line2 = document.querySelector('.handwriting .line2');
+  if (line2) {
+    const line2Words = line2.querySelectorAll('.word');
+    const line2Rect = line2.getBoundingClientRect();
+    
+    line2Words.forEach(word => {
+      const wordRect = word.getBoundingClientRect();
+      
+      // Если слово выходит за пределы строки
+      if (wordRect.right > line2Rect.right) {
+        word.classList.add('force-break');
+      }
+    });
+  }
+}
+
+// Функция для анимации букв
+function animateTitleLetters() {
+  const spans = document.querySelectorAll('.handwriting span');
+  let delay = 0.2;
+  
+  spans.forEach((span, index) => {
+    // Пропускаем элементы с классом 'word' и 'line'
+    if (!span.classList.contains('word') && !span.classList.contains('line')) {
+      span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${delay}s forwards`;
+      delay += 0.12;
+    }
+  });
+}
+
 // Функция для открытия/закрытия всплывающих окон "Что вас ждет"
 function toggleExpectation(index) {
   const titles = [
@@ -1253,11 +1310,11 @@ function initMap() {
 
 // Главная функция инициализации
 window.onload = function() {
-  // Анимация заголовка с новой структурой строк
-  const spans = document.querySelectorAll('.handwriting span');
-  spans.forEach((span, index) => {
-    span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${0.2 + index * 0.12}s forwards`;
-  });
+  // Управление переносами слов
+  manageWordWrapping();
+  
+  // Запускаем анимацию
+  animateTitleLetters();
   
   // Анимация линии
   const line = document.querySelector('.title-line');
@@ -1287,6 +1344,11 @@ window.onload = function() {
   document.querySelectorAll('[data-aos]').forEach(el => {
     observer.observe(el);
   });
+  
+  // Пересчитываем при изменении размера окна
+  window.addEventListener('resize', function() {
+    manageWordWrapping();
+  });
 };
 
 // Ключевые стили анимации
@@ -1298,7 +1360,6 @@ styleSheet.textContent = `
 `;
 document.head.appendChild(styleSheet);
 </script>
-
 <!-- Дефер загрузка иконок FontAwesome -->
 <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
@@ -1307,4 +1368,5 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
+
 
