@@ -989,23 +989,28 @@ function manageWordWrapping() {
 
 // Функция для анимации букв - ИСПРАВЛЕННАЯ ВЕРСИЯ
 function animateTitleLetters() {
-  // Выбираем только span, которые находятся внутри .word и являются непосредственными детьми
-  const letterSpans = document.querySelectorAll('.handwriting .word span');
-  let delay = 0.2;
-  
-  letterSpans.forEach((span, index) => {
-    span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${delay}s forwards`;
-    delay += 0.12;
-  });
-  
-  // Также анимируем отдельные буквы "В" и пробелы
-  const otherSpans = document.querySelectorAll('.handwriting .line2 > span:not(.word)');
-  otherSpans.forEach((span, index) => {
-    if (span.textContent.trim() !== '') { // Анимируем только непустые span
-      span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${delay}s forwards`;
-      delay += 0.12;
-    }
-  });
+    // Выбираем ВСЕ span с буквами
+    const letterSpans = document.querySelectorAll('.handwriting span span');
+    let delay = 0.2;
+    
+    letterSpans.forEach((span) => {
+        // Пропускаем пробелы
+        if (span.textContent.trim() !== '') {
+            span.style.opacity = '0'; // На всякий случай
+            span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${delay}s forwards`;
+            delay += 0.12;
+        }
+    });
+    
+    // Также анимируем отдельные буквы "В" и пробелы
+    const otherSpans = document.querySelectorAll('.handwriting .line2 > span:not(.word)');
+    otherSpans.forEach((span) => {
+        if (span.textContent.trim() !== '') {
+            span.style.opacity = '0';
+            span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${delay}s forwards`;
+            delay += 0.12;
+        }
+    });
 }
 
 // Функция для открытия/закрытия всплывающих окон "Что вас ждет"
@@ -1364,5 +1369,6 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
+
 
 
