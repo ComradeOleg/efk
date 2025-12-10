@@ -990,7 +990,7 @@ function manageWordWrapping() {
 // Функция для анимации букв - ИСПРАВЛЕННАЯ ВЕРСИЯ
 function animateTitleLetters() {
   // Выбираем только span, которые находятся внутри .word и являются непосредственными детьми
-  const letterSpans = document.querySelectorAll('.handwriting .word > span');
+  const letterSpans = document.querySelectorAll('.handwriting .word span');
   let delay = 0.2;
   
   letterSpans.forEach((span, index) => {
@@ -1364,4 +1364,5 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
+
 
