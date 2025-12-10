@@ -101,6 +101,7 @@ body {
   margin-bottom: 20px;
   line-height: 1;
   font-weight: 400;
+  /* text-transform: lowercase; ← УДАЛИТЬ ЭТУ СТРОКУ */
   letter-spacing: 1px;
   text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
 }
@@ -110,32 +111,15 @@ body {
   margin-bottom: 20px;
 }
 
-/* Увеличиваем отступ между строками */
-.handwriting .line:first-child {
-  margin-bottom: 40px; /* Увеличили с 20px до 40px */
-}
-
 .handwriting span {
   display: inline-block;
   opacity: 0;
   transform: translateY(50px);
 }
 
-/* Объединяем буквы в слова */
-.handwriting .word {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-/* Уменьшаем шрифт только для первого слова (Путешествие) */
-.handwriting .line1 .word span {
+/* Уменьшаем шрифт только для первой строки (Путешествие) */
+.handwriting .line:first-child span {
   font-size: 0.85em; /* Уменьшаем размер шрифта на 15% */
-}
-
-/* Принудительный перенос слова на новую строку */
-.handwriting .word.force-break {
-  display: block;
-  margin-top: 10px;
 }
 
 /* Ускоренная анимация букв */
@@ -143,6 +127,40 @@ body {
   0% { opacity:0; transform:translateY(40px) rotate(-5deg) scale(0.9); }
   60% { transform:translateY(-8px) rotate(2deg) scale(1.05); }
   100% { opacity:1; transform:translateY(0) rotate(0) scale(1); }
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+  .handwriting {
+    font-size: clamp(3rem, 10vw, 5rem);
+    line-height: 0.95;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+  }
+  
+  .handwriting .line:first-child span {
+    font-size: 0.9em; /* Меньшее уменьшение на мобильных */
+  }
+  
+  .handwriting .line {
+    margin-bottom: -12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .handwriting {
+    font-size: clamp(2.5rem, 11vw, 4rem);
+    line-height: 0.9;
+    letter-spacing: 0.3px;
+  }
+  
+  .handwriting .line:first-child span {
+    font-size: 0.95em; /* Ещё меньшее уменьшение на маленьких экранах */
+  }
+  
+  .handwriting .line {
+    margin-bottom: -10px;
+  }
 }
 
 /* Основные стили текста */
@@ -527,6 +545,59 @@ body {
   z-index: 1;
 }
 
+/* Адаптация для мобильных */
+@media (max-width: 1024px) {
+  .expectation-card {
+    height: 200px;
+    padding: 40px 30px;
+  }
+  
+  .expectation-card h3 {
+    font-size: 1.4rem;
+  }
+  
+  .expectation-card p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .expectations-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    max-width: 600px;
+  }
+  
+  .expectation-card {
+    height: 180px;
+    padding: 35px 25px;
+  }
+  
+  .expectation-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+  
+  .expectation-card p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .expectation-card {
+    height: 160px;
+    padding: 30px 20px;
+  }
+  
+  .expectation-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .expectation-card p {
+    font-size: 0.9rem;
+  }
+}
+
 /* График работы */
 .schedule-section {
   background: rgba(8, 18, 30, 0.7);
@@ -603,21 +674,6 @@ body {
 }
 
 /* Адаптивность */
-@media (max-width: 1024px) {
-  .expectation-card {
-    height: 200px;
-    padding: 40px 30px;
-  }
-  
-  .expectation-card h3 {
-    font-size: 1.4rem;
-  }
-  
-  .expectation-card p {
-    font-size: 1rem;
-  }
-}
-
 @media (max-width: 768px) {
   .hero-header { min-height: 90vh; }
   .slider-container { max-width: 100%; }
@@ -629,45 +685,6 @@ body {
   .social-link { width: 45px; height: 45px; font-size: 1.3rem; }
   #map { height: 350px; }
   .schedule-content { padding: 30px 25px; }
-  
-  .handwriting {
-    font-size: clamp(3rem, 10vw, 5rem);
-    line-height: 0.95;
-    margin-bottom: 15px;
-    letter-spacing: 0.5px;
-  }
-  
-  .handwriting .line:first-child {
-    margin-bottom: 30px; /* Меньший отступ на мобильных */
-  }
-  
-  .handwriting .line1 .word span {
-    font-size: 0.9em; /* Меньшее уменьшение на мобильных */
-  }
-  
-  .handwriting .line {
-    margin-bottom: -12px;
-  }
-  
-  .expectations-container {
-    grid-template-columns: 1fr;
-    gap: 25px;
-    max-width: 600px;
-  }
-  
-  .expectation-card {
-    height: 180px;
-    padding: 35px 25px;
-  }
-  
-  .expectation-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-  }
-  
-  .expectation-card p {
-    font-size: 0.95rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -682,37 +699,6 @@ body {
   .schedule-content { padding: 25px 20px; }
   .schedule-item { flex-direction: column; }
   .schedule-icon { margin-bottom: 10px; margin-right: 0; }
-  
-  .handwriting {
-    font-size: clamp(2.5rem, 11vw, 4rem);
-    line-height: 0.9;
-    letter-spacing: 0.3px;
-  }
-  
-  .handwriting .line:first-child {
-    margin-bottom: 25px; /* Ещё меньше на маленьких экранах */
-  }
-  
-  .handwriting .line1 .word span {
-    font-size: 0.95em; /* Ещё меньшее уменьшение на маленьких экранах */
-  }
-  
-  .handwriting .line {
-    margin-bottom: -10px;
-  }
-  
-  .expectation-card {
-    height: 160px;
-    padding: 30px 20px;
-  }
-  
-  .expectation-card h3 {
-    font-size: 1.2rem;
-  }
-  
-  .expectation-card p {
-    font-size: 0.9rem;
-  }
 }
 </style>
 
@@ -741,21 +727,15 @@ body {
   <div class="hero-content">
     <!-- Заголовок с новым шрифтом Sail -->
     <h1 class="handwriting">
-      <span class="line line1">
-        <span class="word" data-word="ПУТЕШЕСТВИЕ">
-          <span>П</span><span>У</span><span>Т</span><span>Е</span><span>Ш</span><span>Е</span><span>С</span><span>Т</span><span>В</span><span>И</span><span>Е</span>
-        </span>
+      <span class="line">
+        <span>П</span><span>У</span><span>Т</span><span>Е</span><span>Ш</span><span>Е</span><span>С</span><span>Т</span><span>В</span><span>И</span><span>Е</span>
       </span>
-      <span class="line line2">
-        <span class="word" data-word="ДЛИННОЮ">
-          <span>Д</span><span>Л</span><span>И</span><span>Н</span><span>Н</span><span>О</span><span>Ю</span>
-        </span>
+      <span class="line">
+        <span>Д</span><span>Л</span><span>И</span><span>Н</span><span>О</span><span>Ю</span>
         <span> </span>
         <span>В</span>
         <span> </span>
-        <span class="word" data-word="ЖИЗНЬ">
-          <span>Ж</span><span>И</span><span>З</span><span>Н</span><span>Ь</span>
-        </span>
+        <span>Ж</span><span>И</span><span>З</span><span>Н</span><span>Ь</span>
       </span>
     </h1>
     <div class="title-line" style="height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);width:0;margin:20px auto 30px;animation:line 1s 1.2s forwards;"></div>
@@ -961,58 +941,6 @@ body {
 
 <!-- Ленивая загрузка JavaScript -->
 <script>
-// Функция для управления переносами слов
-function manageWordWrapping() {
-  const words = document.querySelectorAll('.handwriting .word');
-  
-  // Сначала сбрасываем все классы
-  words.forEach(word => {
-    word.classList.remove('force-break');
-  });
-  
-  // Проверяем каждое слово во второй строке
-  const line2 = document.querySelector('.handwriting .line2');
-  if (line2) {
-    const line2Words = line2.querySelectorAll('.word');
-    const line2Rect = line2.getBoundingClientRect();
-    
-    line2Words.forEach(word => {
-      const wordRect = word.getBoundingClientRect();
-      
-      // Если слово выходит за пределы строки
-      if (wordRect.right > line2Rect.right) {
-        word.classList.add('force-break');
-      }
-    });
-  }
-}
-
-// Функция для анимации букв - ИСПРАВЛЕННАЯ ВЕРСИЯ
-function animateTitleLetters() {
-    // Выбираем ВСЕ span с буквами
-    const letterSpans = document.querySelectorAll('.handwriting span span');
-    let delay = 0.2;
-    
-    letterSpans.forEach((span) => {
-        // Пропускаем пробелы
-        if (span.textContent.trim() !== '') {
-            span.style.opacity = '0'; // На всякий случай
-            span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${delay}s forwards`;
-            delay += 0.12;
-        }
-    });
-    
-    // Также анимируем отдельные буквы "В" и пробелы
-    const otherSpans = document.querySelectorAll('.handwriting .line2 > span:not(.word)');
-    otherSpans.forEach((span) => {
-        if (span.textContent.trim() !== '') {
-            span.style.opacity = '0';
-            span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${delay}s forwards`;
-            delay += 0.12;
-        }
-    });
-}
-
 // Функция для открытия/закрытия всплывающих окон "Что вас ждет"
 function toggleExpectation(index) {
   const titles = [
@@ -1311,11 +1239,11 @@ function initMap() {
 
 // Главная функция инициализации
 window.onload = function() {
-  // Управление переносами слов
-  manageWordWrapping();
-  
-  // Запускаем анимацию - ТЕПЕРЬ БУДЕТ РАБОТАТЬ
-  animateTitleLetters();
+  // Анимация заголовка с новой структурой строк
+  const spans = document.querySelectorAll('.handwriting span');
+  spans.forEach((span, index) => {
+    span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${0.2 + index * 0.12}s forwards`;
+  });
   
   // Анимация линии
   const line = document.querySelector('.title-line');
@@ -1345,11 +1273,6 @@ window.onload = function() {
   document.querySelectorAll('[data-aos]').forEach(el => {
     observer.observe(el);
   });
-  
-  // Пересчитываем при изменении размера окна
-  window.addEventListener('resize', function() {
-    manageWordWrapping();
-  });
 };
 
 // Ключевые стили анимации
@@ -1361,6 +1284,7 @@ styleSheet.textContent = `
 `;
 document.head.appendChild(styleSheet);
 </script>
+
 <!-- Дефер загрузка иконок FontAwesome -->
 <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
@@ -1369,6 +1293,3 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
-
-
-
