@@ -92,7 +92,6 @@ body {
 }
 
 /* Заголовок с новым шрифтом Sail */
-/* Заголовок с новым шрифтом Sail */
 .handwriting {
   font-family: "Spectral SC", serif;
   font-weight: 300;
@@ -102,7 +101,6 @@ body {
   margin-bottom: 20px;
   line-height: 1;
   font-weight: 400;
-  /* text-transform: lowercase; ← УДАЛИТЬ ЭТУ СТРОКУ */
   letter-spacing: 1px;
   text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
 }
@@ -147,47 +145,6 @@ body {
   100% { opacity:1; transform:translateY(0) rotate(0) scale(1); }
 }
 
-/* Для мобильных устройств */
-@media (max-width: 768px) {
-  .handwriting {
-    font-size: clamp(3rem, 10vw, 5rem);
-    line-height: 0.95;
-    margin-bottom: 15px;
-    letter-spacing: 0.5px;
-  }
-  
-  .handwriting .line:first-child {
-    margin-bottom: 30px; /* Меньший отступ на мобильных */
-  }
-  
-  .handwriting .line1 .word span {
-    font-size: 0.9em; /* Меньшее уменьшение на мобильных */
-  }
-  
-  .handwriting .line {
-    margin-bottom: -12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .handwriting {
-    font-size: clamp(2.5rem, 11vw, 4rem);
-    line-height: 0.9;
-    letter-spacing: 0.3px;
-  }
-  
-  .handwriting .line:first-child {
-    margin-bottom: 25px; /* Ещё меньше на маленьких экранах */
-  }
-  
-  .handwriting .line1 .word span {
-    font-size: 0.95em; /* Ещё меньшее уменьшение на маленьких экранах */
-  }
-  
-  .handwriting .line {
-    margin-bottom: -10px;
-  }
-}
 /* Основные стили текста */
 .hero-subtitle {
   font-size: clamp(1.2rem, 2.5vw, 1.6rem);
@@ -570,59 +527,6 @@ body {
   z-index: 1;
 }
 
-/* Адаптация для мобильных */
-@media (max-width: 1024px) {
-  .expectation-card {
-    height: 200px;
-    padding: 40px 30px;
-  }
-  
-  .expectation-card h3 {
-    font-size: 1.4rem;
-  }
-  
-  .expectation-card p {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .expectations-container {
-    grid-template-columns: 1fr;
-    gap: 25px;
-    max-width: 600px;
-  }
-  
-  .expectation-card {
-    height: 180px;
-    padding: 35px 25px;
-  }
-  
-  .expectation-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-  }
-  
-  .expectation-card p {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .expectation-card {
-    height: 160px;
-    padding: 30px 20px;
-  }
-  
-  .expectation-card h3 {
-    font-size: 1.2rem;
-  }
-  
-  .expectation-card p {
-    font-size: 0.9rem;
-  }
-}
-
 /* График работы */
 .schedule-section {
   background: rgba(8, 18, 30, 0.7);
@@ -699,6 +603,21 @@ body {
 }
 
 /* Адаптивность */
+@media (max-width: 1024px) {
+  .expectation-card {
+    height: 200px;
+    padding: 40px 30px;
+  }
+  
+  .expectation-card h3 {
+    font-size: 1.4rem;
+  }
+  
+  .expectation-card p {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-header { min-height: 90vh; }
   .slider-container { max-width: 100%; }
@@ -710,6 +629,45 @@ body {
   .social-link { width: 45px; height: 45px; font-size: 1.3rem; }
   #map { height: 350px; }
   .schedule-content { padding: 30px 25px; }
+  
+  .handwriting {
+    font-size: clamp(3rem, 10vw, 5rem);
+    line-height: 0.95;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+  }
+  
+  .handwriting .line:first-child {
+    margin-bottom: 30px; /* Меньший отступ на мобильных */
+  }
+  
+  .handwriting .line1 .word span {
+    font-size: 0.9em; /* Меньшее уменьшение на мобильных */
+  }
+  
+  .handwriting .line {
+    margin-bottom: -12px;
+  }
+  
+  .expectations-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    max-width: 600px;
+  }
+  
+  .expectation-card {
+    height: 180px;
+    padding: 35px 25px;
+  }
+  
+  .expectation-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+  
+  .expectation-card p {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -724,6 +682,37 @@ body {
   .schedule-content { padding: 25px 20px; }
   .schedule-item { flex-direction: column; }
   .schedule-icon { margin-bottom: 10px; margin-right: 0; }
+  
+  .handwriting {
+    font-size: clamp(2.5rem, 11vw, 4rem);
+    line-height: 0.9;
+    letter-spacing: 0.3px;
+  }
+  
+  .handwriting .line:first-child {
+    margin-bottom: 25px; /* Ещё меньше на маленьких экранах */
+  }
+  
+  .handwriting .line1 .word span {
+    font-size: 0.95em; /* Ещё меньшее уменьшение на маленьких экранах */
+  }
+  
+  .handwriting .line {
+    margin-bottom: -10px;
+  }
+  
+  .expectation-card {
+    height: 160px;
+    padding: 30px 20px;
+  }
+  
+  .expectation-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .expectation-card p {
+    font-size: 0.9rem;
+  }
 }
 </style>
 
@@ -1360,6 +1349,7 @@ styleSheet.textContent = `
 `;
 document.head.appendChild(styleSheet);
 </script>
+
 <!-- Дефер загрузка иконок FontAwesome -->
 <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
@@ -1368,5 +1358,3 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
-
-
