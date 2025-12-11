@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Статистика - Выставка Конюхова</title>
+    <style>
+        body {
+            background: #0a1520;
+            color: #f8f5f0;
+            font-family: sans-serif;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .counter {
+            font-size: 5rem;
+            color: #d4af37;
+            margin: 30px 0;
+        }
+        .note {
+            color: #888;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 Статистика переходов</h1>
+    <p>По ссылке "Купить билет"</p>
+    
+    <div class="counter" id="counter">0</div>
+    
+    <p>переходов в этом браузере</p>
+    
+    <button onclick="resetCounter()" style="
+        background: #d4af37;
+        color: black;
+        border: none;
+        padding: 12px 35px;
+        border-radius: 25px;
+        font-weight: bold;
+        margin-top: 30px;
+        cursor: pointer;
+    ">
+        Сбросить счетчик
+    </button>
+    
+    <div class="note">
+        ⚠️ Данные хранятся только в этом браузере<br>
+        После очистки кэша или на другом устройстве счетчик будет другим
+    </div>
+    
+    <script>
+        // Получаем данные из localStorage
+        let count = localStorage.getItem('ticketCount') || 0;
+        document.getElementById('counter').textContent = count;
+        
+        function resetCounter() {
+            if (confirm('Сбросить счетчик?')) {
+                localStorage.setItem('ticketCount', 0);
+                document.getElementById('counter').textContent = 0;
+            }
+        }
+        
+        // Автообновление каждые 5 секунд
+        setInterval(() => {
+            count = localStorage.getItem('ticketCount') || 0;
+            document.getElementById('counter').textContent = count;
+        }, 5000);
+    </script>
+</body>
+</html>
