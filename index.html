@@ -934,6 +934,11 @@ body {
   <div class="social-placeholder">
     Присоединяйтесь к нашим сообществам!
   </div>
+  <div style="text-align:center; margin-top:30px; font-size:0.8rem; color:#666;">
+    <a href="stats.html" target="_blank" style="color:#666; text-decoration:none;">
+        Посмотреть статистику
+    </a>
+  </div>
   <p style="color:#88aacc;font-size:0.9rem;max-width:600px;margin:30px auto 0;line-height:1.6;padding-top:20px;border-top:1px solid rgba(136,170,204,0.2);">
     © 2025 Иммерсивная выставка Фёдора Конюхова «Путешествие длиною в жизнь». Все права защищены.
   </p>
@@ -941,6 +946,29 @@ body {
 
 <!-- Ленивая загрузка JavaScript -->
 <script>
+// В самом начале скрипта
+if (window.location.search.includes('showstats')) {
+    const count = localStorage.getItem('ticketCount') || 0;
+    alert(`Статистика переходов: ${count}`);
+    
+    // Или выведите на страницу
+    document.body.innerHTML += `
+        <div style="
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.9);
+            color: gold;
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 9999;
+            border: 2px solid gold;
+            font-family: monospace;
+        ">
+            Переходов: <strong>${count}</strong>
+        </div>
+    `;
+}
 // Функция для открытия/закрытия всплывающих окон "Что вас ждет"
 function toggleExpectation(index) {
   const titles = [
@@ -1293,3 +1321,4 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
+
