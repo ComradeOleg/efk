@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика переходов | Выставка Конюхова</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a1520 0%, #0d1b2a 100%);
+            color: #f4e8c1;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        h1 { color: #d4af37; margin-bottom: 20px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background: rgba(13, 27, 42, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            color: #d4af37;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(244, 232, 193, 0.9);
+        }
+        
+        .last-update {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(8, 18, 30, 0.6);
+            border-radius: 10px;
+        }
+        
+        .daily-stats {
+            margin-top: 40px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        th {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+        }
+        
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        button {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: rgba(212, 175, 55, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Статистика переходов по ссылке "Купить билет"</h1>
+        <p>Выставка Фёдора Конюхова «Путешествие длиною в жизнь»</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Всего переходов</div>
+                <div class="stat-number" id="totalClicks">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Переходов сегодня</div>
+                <div class="stat-number" id="todayClicks">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Дата последнего перехода</div>
+                <div class="stat-number" id="lastClickDate">—</div>
+            </div>
+        </div>
+        
+        <div class="last-update">
+            <h3>📅 Статистика по дням</h3>
+            <div id="dailyStatsTable">
+                <p style="text-align: center; padding: 20px;">Загрузка данных...</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button onclick="refreshStats()">🔄 Обновить</button>
+            <button onclick="exportStats()">📥 Экспорт данных</button>
+            <button onclick="resetStats()">🗑️ Сбросить статистику</button>
+        </div>
+        
+        <div style="margin-top: 30px; font-size: 0.9rem; color: #88aacc; text-align: center;">
+            <p>Данные хранятся в localStorage браузера. Для синхронизации между устройствами используйте экспорт/импорт.</p>
+        </div>
+    </div>
+
+    <script>
+        // Функция для получения данных счётчика
+        function getCounterData() {
+            try {
+                const data = localStorage.getItem('ticketClicks');
+                if (!data) {
+                    return {
+                        total: 0,
+                        daily: {},
+                        weekly: {},
+                        monthly: {},
+                        lastClick: null
+                    };
+                }
+                return JSON.parse(data);
+            } catch(e) {
+                console.error('Ошибка загрузки данных:', e);
+                return {
+                    total: 0,
+                    daily: {},
+                    weekly: {},
+                    monthly: {},
+                    lastClick: null
+                };
+            }
+        }
+
+        // Функция для форматирования даты
+        function formatDate(dateString) {
+            if (!dateString) return '—';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU') + ' ' + date.toLocaleTimeString('ru-RU');
+        }
+
+        // Функция для отображения статистики
+        function displayStats() {
+            const data = getCounterData();
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Общие данные
+            document.getElementById('totalClicks').textContent = data.total || 0;
+            document.getElementById('todayClicks').textContent = data.daily[today] || 0;
+            document.getElementById('lastClickDate').textContent = 
+                data.lastClick ? formatDate(data.lastClick) : '—';
+            
+            // Таблица по дням
+            const dailyTable = document.getElementById('dailyStatsTable');
+            if (Object.keys(data.daily).length === 0) {
+                dailyTable.innerHTML = '<p style="text-align: center; padding: 20px;">Нет данных</p>';
+            } else {
+                let html = '<table>';
+                html += '<tr><th>Дата</th><th>Переходов</th></tr>';
+                
+                // Сортируем даты по убыванию
+                const sortedDates = Object.keys(data.daily).sort().reverse();
+                
+                sortedDates.forEach(date => {
+                    const formattedDate = new Date(date).toLocaleDateString('ru-RU', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    html += `<tr>
+                        <td>${formattedDate}</td>
+                        <td style="text-align: center; font-weight: bold;">${data.daily[date]}</td>
+                    </tr>`;
+                });
+                
+                html += '</table>';
+                dailyTable.innerHTML = html;
+            }
+        }
+
+        // Обновить статистику
+        function refreshStats() {
+            displayStats();
+            showNotification('✅ Данные обновлены');
+        }
+
+        // Экспорт данных
+        function exportStats() {
+            const data = getCounterData();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `konukhov-stats-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            showNotification('📁 Данные экспортированы');
+        }
+
+        // Сброс статистики
+        function resetStats() {
+            if (confirm('Вы уверены, что хотите сбросить всю статистику? Это действие нельзя отменить.')) {
+                localStorage.setItem('ticketClicks', JSON.stringify({
+                    total: 0,
+                    daily: {},
+                    weekly: {},
+                    monthly: {},
+                    lastClick: null
+                }));
+                
+                displayStats();
+                showNotification('🗑️ Статистика сброшена');
+            }
+        }
+
+        // Показать уведомление
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #d4af37;
+                color: #0a1520;
+                padding: 15px 25px;
+                border-radius: 10px;
+                font-weight: bold;
+                z-index: 1000;
+                animation: fadeInOut 3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Запуск при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            displayStats();
+            
+            // Автообновление каждые 5 секунд
+            setInterval(displayStats, 5000);
+            
+            // Стиль для анимации
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeInOut {
+                    0% { opacity: 0; transform: translateY(-20px); }
+                    10% { opacity: 1; transform: translateY(0); }
+                    90% { opacity: 1; transform: translateY(0); }
+                    100% { opacity: 0; transform: translateY(-20px); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
