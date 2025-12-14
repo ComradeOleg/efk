@@ -1297,6 +1297,72 @@ styleSheet.textContent = `
   }
 `;
 document.head.appendChild(styleSheet);
+
+    // Инициализация счётчика
+    if (typeof localStorage !== 'undefined') {
+        // Функция для получения данных счётчика
+        function getCounterData() {
+            try {
+                const data = localStorage.getItem('ticketClicks');
+                return data ? JSON.parse(data) : {
+                    total: 0,
+                    daily: {},
+                    weekly: {},
+                    monthly: {},
+                    lastClick: null
+                };
+            } catch {
+                return {
+                    total: 0,
+                    daily: {},
+                    weekly: {},
+                    monthly: {},
+                    lastClick: null
+                };
+            }
+        }
+
+        // Функция для сохранения данных
+        function saveCounterData(data) {
+            try {
+                localStorage.setItem('ticketClicks', JSON.stringify(data));
+            } catch(e) {
+                console.warn('Не удалось сохранить данные счётчика:', e);
+            }
+        }
+
+        // Функция для получения даты в формате
+        function getFormattedDate() {
+            return new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+        }
+
+        // Обработка кликов по кнопкам "Купить билет"
+        document.addEventListener('DOMContentLoaded', function() {
+            const ticketButtons = document.querySelectorAll('.buy-ticket-btn');
+            
+            ticketButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Если ссылка ведёт на билеты (проверка по URL)
+                    if (this.href.includes('mvms.tn-cloud.ru')) {
+                        const data = getCounterData();
+                        const today = getFormattedDate();
+                        
+                        // Обновляем статистику
+                        data.total = (data.total || 0) + 1;
+                        data.daily[today] = (data.daily[today] || 0) + 1;
+                        data.lastClick = new Date().toISOString();
+                        
+                        saveCounterData(data);
+                        
+                        console.log('✅ Клик зарегистрирован! Всего переходов:', data.total);
+                        
+                        // Можно показать уведомление (опционально)
+                        // showClickNotification();
+                    }
+                });
+            });
+        });
+    }
 </script>
 
 <!-- Дефер загрузка иконок FontAwesome -->
@@ -1307,6 +1373,7 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
+
 
 
 
