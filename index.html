@@ -1090,13 +1090,11 @@ body {
 
 <!-- СКРЫТЫЙ СЧЕТЧИК (фиксированный в углу) -->
 <div class="hidden-counter" id="hiddenCounter" onclick="toggleAdminControls()" title="Только для администраторов">
-    <div>📊 <span id="hiddenCounterValue">0</span></div>
-    <div class="admin-only">админ</div>
+    <div><span id="hiddenCounterValue">0</span></div>
 </div>
 
 <div class="admin-controls" id="adminControls">
     <button class="admin-btn" onclick="showCounterStats()">Статистика</button>
-    <button class="admin-btn" onclick="resetCounter()">Сбросить</button>
     <button class="admin-btn" onclick="hideAdminControls()">Закрыть</button>
 </div>
 
@@ -1692,3 +1690,4 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
+
