@@ -712,217 +712,125 @@ body {
     .schedule-icon { margin-bottom: 10px; margin-right: 0; }
 }
 
-/* СТИЛИ ДЛЯ ПАНЕЛИ СТАТИСТИКИ */
-.stats-panel {
+/* СТИЛИ ДЛЯ СКРЫТОГО СЧЕТЧИКА */
+.hidden-counter {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(8, 18, 30, 0.98));
-    padding: 30px;
-    border-radius: 15px;
-    border: 2px solid var(--gold);
-    z-index: 10000;
-    max-width: 500px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-    display: none;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-}
-
-.stats-panel.active {
-    display: block;
-    animation: fadeInPanel 0.3s ease forwards;
-}
-
-@keyframes fadeInPanel {
-    from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
-    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
-
-.stats-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    color: #aaa;
     z-index: 9999;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid #333;
+    max-width: 200px;
+    text-align: center;
+}
+
+.hidden-counter:hover {
+    opacity: 0.8;
+}
+
+.hidden-counter .admin-only {
+    font-size: 9px;
+    color: #666;
+    margin-top: 2px;
+    font-style: italic;
+}
+
+.admin-controls {
+    position: fixed;
+    bottom: 60px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    color: #aaa;
+    z-index: 9998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border: 1px solid #333;
     display: none;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.stats-overlay.active {
-    display: block;
-    animation: fadeInOverlay 0.3s ease forwards;
+.admin-controls.active {
+    display: flex;
+    opacity: 0.9;
 }
 
-@keyframes fadeInOverlay {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.admin-btn {
+    background: #444;
+    color: #fff;
+    border: none;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 10px;
 }
 
-.stats-panel h3 {
-    color: var(--light-gold);
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    margin-bottom: 25px;
-    text-align: center;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-    padding-bottom: 15px;
+.admin-btn:hover {
+    background: #555;
 }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-bottom: 25px;
-}
-
-.stat-item {
-    background: rgba(255, 255, 255, 0.05);
+.hidden-counter-triple-click {
+    position: fixed;
+    bottom: 120px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.9);
     padding: 15px;
-    border-radius: 10px;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    text-align: center;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #ddd;
+    z-index: 9997;
+    border: 2px solid var(--gold);
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 250px;
 }
 
-.stat-label {
-    font-size: 0.9rem;
-    color: rgba(248, 245, 240, 0.8);
-    margin-bottom: 8px;
-    display: block;
+.hidden-counter-triple-click.active {
+    display: flex;
 }
 
-.stat-value {
-    font-size: 1.8rem;
-    color: var(--gold);
-    font-weight: bold;
-    display: block;
-}
-
-.stat-detail {
-    font-size: 0.85rem;
-    color: rgba(248, 245, 240, 0.6);
-    margin-top: 5px;
-}
-
-.stats-history {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    border: 1px solid rgba(212, 175, 55, 0.1);
-}
-
-.stats-history h4 {
-    color: var(--light-gold);
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.history-item {
+.counter-stat {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3px 0;
+    border-bottom: 1px solid #333;
 }
 
-.history-item:last-child {
+.counter-stat:last-child {
     border-bottom: none;
 }
 
-.history-date {
-    color: rgba(248, 245, 240, 0.8);
-    font-size: 0.9rem;
-}
-
-.history-count {
+.stat-value {
     color: var(--gold);
     font-weight: bold;
-    background: rgba(212, 175, 55, 0.1);
-    padding: 3px 10px;
-    border-radius: 15px;
-    font-size: 0.9rem;
-}
-
-.stats-controls {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 25px;
-    gap: 15px;
-}
-
-.stats-btn {
-    flex: 1;
-    background: linear-gradient(135deg, var(--gold), var(--light-gold));
-    color: #0b1828;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    font-size: 0.9rem;
-}
-
-.stats-btn:hover {
-    transform: translateY(-3px);
-}
-
-.stats-btn.secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--light-gold);
-}
-
-.stats-btn.secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.close-stats {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: var(--gold);
-    font-size: 1.8rem;
-    cursor: pointer;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: background 0.3s ease;
-}
-
-.close-stats:hover {
-    background: rgba(212, 175, 55, 0.1);
 }
 
 /* Ссылка "Статистика" в футере */
 .stats-link {
     color: #88aacc;
-    font-size: 0.95rem; /* Увеличили с 0.8rem */
+    font-size: 0.8rem;
     text-decoration: none;
-    opacity: 0.8;
+    opacity: 0.7;
     cursor: pointer;
     transition: all 0.3s ease;
-    padding: 8px 15px;
-    border-radius: 5px;
-    background: rgba(136, 170, 204, 0.05);
-    display: inline-block;
-    margin: 10px 0;
 }
 
 .stats-link:hover {
     opacity: 1;
     color: var(--gold);
-    background: rgba(212, 175, 55, 0.1);
-    transform: translateY(-2px);
 }
 
 </style>
@@ -1141,8 +1049,8 @@ body {
         Фёдор Конюхов «Путешествие длиною в жизнь»
     </div>
     <div style="font-size:clamp(0.9rem,1.5vw,1.1rem);line-height:1.6;margin-bottom:40px;color:rgba(248,245,240,0.9);">
-        <p style="font-size:1.15rem;">г. Кронштадт, ул. Цитадельское шоссе, 18</p> <!-- Увеличили на 5px -->
-        <p style="margin-top:10px;font-size:1rem;color:rgba(136,170,204,0.9);"> <!-- Увеличили на 5px -->
+        <p>г. Кронштадт, ул. Цитадельское шоссе, 18</p>
+        <p style="margin-top:10px;font-size:0.9rem;color:rgba(136,170,204,0.8);">
             По всем вопросам звоните: +79381612468
         </p>
     </div>
@@ -1168,9 +1076,9 @@ body {
     <!-- ССЫЛКА "СТАТИСТИКА" В ФУТЕРЕ -->
     <div style="text-align: center; margin: 20px 0;">
         <a href="javascript:void(0)" 
-           onclick="showStatsPanel()" 
+           onclick="toggleAdminControls()" 
            class="stats-link"
-           title="Статистика переходов (только для администраторов)">
+           title="Открыть панель статистики (только для администраторов)">
             Статистика
         </a>
     </div>
@@ -1180,71 +1088,41 @@ body {
     </p>
 </footer>
 
-<!-- ПАНЕЛЬ СТАТИСТИКИ -->
-<div class="stats-overlay" id="statsOverlay" onclick="closeStatsPanel()"></div>
+<!-- СКРЫТЫЙ СЧЕТЧИК (фиксированный в углу) -->
+<div class="hidden-counter" id="hiddenCounter" onclick="toggleAdminControls()" title="Только для администраторов">
+    <div>📊 <span id="hiddenCounterValue">0</span></div>
+    <div class="admin-only">админ</div>
+</div>
 
-<div class="stats-panel" id="statsPanel">
-    <button class="close-stats" onclick="closeStatsPanel()">×</button>
-    <h3>📊 Статистика переходов</h3>
-    
-    <div class="stats-grid">
-        <div class="stat-item">
-            <span class="stat-label">Всего переходов</span>
-            <span class="stat-value" id="statTotal">0</span>
-        </div>
-        
-        <div class="stat-item">
-            <span class="stat-label">Сегодня</span>
-            <span class="stat-value" id="statToday">0</span>
-        </div>
-        
-        <div class="stat-item">
-            <span class="stat-label">За неделю</span>
-            <span class="stat-value" id="statWeek">0</span>
-        </div>
-        
-        <div class="stat-item">
-            <span class="stat-label">За месяц</span>
-            <span class="stat-value" id="statMonth">0</span>
-        </div>
+<div class="admin-controls" id="adminControls">
+    <button class="admin-btn" onclick="showCounterStats()">Статистика</button>
+    <button class="admin-btn" onclick="resetCounter()">Сбросить</button>
+    <button class="admin-btn" onclick="hideAdminControls()">Закрыть</button>
+</div>
+
+<div class="hidden-counter-triple-click" id="counterStats">
+    <h4 style="color: var(--gold); margin-bottom: 10px;">Статистика переходов</h4>
+    <div class="counter-stat">
+        <span>Всего переходов:</span>
+        <span class="stat-value" id="statTotal">0</span>
     </div>
-    
-    <div class="stats-history">
-        <h4>Последние переходы</h4>
-        <div id="statsHistoryList">
-            <!-- История будет загружена через JavaScript -->
-            <div class="history-item">
-                <span class="history-date">Сегодня</span>
-                <span class="history-count" id="todayCount">0</span>
-            </div>
-            <div class="history-item">
-                <span class="history-date">Вчера</span>
-                <span class="history-count" id="yesterdayCount">0</span>
-            </div>
-            <div class="history-item">
-                <span class="history-date">Позавчера</span>
-                <span class="history-count" id="twoDaysAgoCount">0</span>
-            </div>
-        </div>
+    <div class="counter-stat">
+        <span>Сегодня:</span>
+        <span class="stat-value" id="statToday">0</span>
     </div>
-    
-    <div style="margin-top: 20px; padding: 15px; background: rgba(212, 175, 55, 0.05); border-radius: 10px; border: 1px solid rgba(212, 175, 55, 0.2);">
-        <div style="color: var(--light-gold); font-size: 0.9rem; margin-bottom: 8px; text-align: center;">
-            <i class="fas fa-chart-line" style="margin-right: 5px;"></i> Примерное количество купленных билетов
-        </div>
-        <div style="color: var(--gold); font-size: 1.8rem; font-weight: bold; text-align: center;" id="estimatedTickets">
-            0
-        </div>
-        <div style="color: rgba(248, 245, 240, 0.6); font-size: 0.8rem; text-align: center; margin-top: 5px;">
-            (40% от переходов)
-        </div>
+    <div class="counter-stat">
+        <span>За неделю:</span>
+        <span class="stat-value" id="statWeek">0</span>
     </div>
-    
-    <div class="stats-controls">
-        <button class="stats-btn" onclick="closeStatsPanel()">
-            <i class="fas fa-times" style="margin-right: 5px;"></i> Закрыть
-        </button>
+    <div class="counter-stat">
+        <span>За месяц:</span>
+        <span class="stat-value" id="statMonth">0</span>
     </div>
+    <div class="counter-stat">
+        <span>Последний переход:</span>
+        <span class="stat-value" id="statLast">-</span>
+    </div>
+    <button class="admin-btn" onclick="closeCounterStats()">Закрыть</button>
 </div>
 
 <!-- Ленивая загрузка JavaScript -->
@@ -1556,13 +1434,6 @@ function getCurrentDate() {
     return now.toISOString().split('T')[0];
 }
 
-// Получить дату N дней назад
-function getDateDaysAgo(days) {
-    const date = new Date();
-    date.setDate(date.getDate() - days);
-    return date.toISOString().split('T')[0];
-}
-
 // Получить данные счетчика из localStorage
 function getCounterData() {
     try {
@@ -1660,14 +1531,18 @@ function getMonthKey() {
 
 // Обновить отображение счетчиков на странице
 function updateCounterDisplay(data) {
-    // Обновляем панель статистики, если она открыта
+    // Основной скрытый счетчик
+    const hiddenCounter = document.getElementById('hiddenCounterValue');
+    if (hiddenCounter) {
+        hiddenCounter.textContent = data.total;
+    }
+    
+    // Обновить статистику в панели администратора
     updateStatsPanel(data);
 }
 
 // Обновить панель статистики
 function updateStatsPanel(data) {
-    if (!data) data = getCounterData();
-    
     document.getElementById('statTotal').textContent = data.total;
     document.getElementById('statToday').textContent = data.today;
     
@@ -1681,47 +1556,46 @@ function updateStatsPanel(data) {
     document.getElementById('statWeek').textContent = weekTotal;
     document.getElementById('statMonth').textContent = monthTotal;
     
-    // Вычисляем количество купленных билетов (40% от переходов)
-    const estimatedTickets = Math.floor(data.total * 0.4);
-    document.getElementById('estimatedTickets').textContent = estimatedTickets;
-    
-    // Обновляем историю
-    updateHistory(data);
+    if (data.lastClick) {
+        const lastClickDate = new Date(data.lastClick);
+        document.getElementById('statLast').textContent = lastClickDate.toLocaleString('ru-RU');
+    }
 }
 
-// Обновить историю переходов
-function updateHistory(data) {
-    const today = getCurrentDate();
-    const yesterday = getDateDaysAgo(1);
-    const twoDaysAgo = getDateDaysAgo(2);
-    
-    // Считаем переходы по дням
-    const historyByDate = {};
-    data.history.forEach(click => {
-        const date = click.date;
-        historyByDate[date] = (historyByDate[date] || 0) + 1;
-    });
-    
-    document.getElementById('todayCount').textContent = historyByDate[today] || 0;
-    document.getElementById('yesterdayCount').textContent = historyByDate[yesterday] || 0;
-    document.getElementById('twoDaysAgoCount').textContent = historyByDate[twoDaysAgo] || 0;
+// Загрузить данные счетчика при загрузке страницы
+function loadCounter() {
+    const data = getCounterData();
+    updateCounterDisplay(data);
 }
 
-// Показать панель статистики
-function showStatsPanel() {
+// Показать/скрыть панель администратора
+function toggleAdminControls() {
+    const adminControls = document.getElementById('adminControls');
+    adminControls.classList.toggle('active');
+    
+    // Если открываем панель, обновляем статистику
+    if (adminControls.classList.contains('active')) {
+        const data = getCounterData();
+        updateStatsPanel(data);
+    }
+}
+
+// Скрыть панель администратора
+function hideAdminControls() {
+    document.getElementById('adminControls').classList.remove('active');
+}
+
+// Показать статистику
+function showCounterStats() {
     const data = getCounterData();
     updateStatsPanel(data);
-    
-    document.getElementById('statsOverlay').classList.add('active');
-    document.getElementById('statsPanel').classList.add('active');
-    document.body.style.overflow = 'hidden'; // Блокируем скролл
+    document.getElementById('counterStats').classList.add('active');
+    document.getElementById('adminControls').classList.remove('active');
 }
 
-// Закрыть панель статистики
-function closeStatsPanel() {
-    document.getElementById('statsOverlay').classList.remove('active');
-    document.getElementById('statsPanel').classList.remove('active');
-    document.body.style.overflow = ''; // Разблокируем скролл
+// Закрыть статистику
+function closeCounterStats() {
+    document.getElementById('counterStats').classList.remove('active');
 }
 
 // Сбросить счетчик
@@ -1738,19 +1612,10 @@ function resetCounter() {
         };
         
         saveCounterData(data);
-        updateStatsPanel(data);
-        
-        // Показываем уведомление
+        updateCounterDisplay(data);
         alert('Счетчик сброшен!');
-        
-        // Не закрываем панель, чтобы видеть обнуленные значения
+        document.getElementById('adminControls').classList.remove('active');
     }
-}
-
-// Загрузить данные счетчика при загрузке страницы
-function loadCounter() {
-    const data = getCounterData();
-    updateCounterDisplay(data);
 }
 
 // Главная функция инициализации
@@ -1801,13 +1666,6 @@ window.onload = function() {
             button.addEventListener('click', function(e) {
                 countClick();
             });
-        }
-    });
-    
-    // Закрытие панели статистики при нажатии ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeStatsPanel();
         }
     });
 };
