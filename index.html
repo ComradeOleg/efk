@@ -95,7 +95,7 @@ body {
     font-family: "Spectral SC", serif;
     font-weight: 300;
     font-style: normal;
-    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-size: clamp(2.75rem, 7vw, 5rem); /* Уменьшил на 6px примерно */
     color: var(--light-gold);
     margin-bottom: 20px;
     line-height: 1;
@@ -106,12 +106,13 @@ body {
 
 .handwriting .line {
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 5px; /* Уменьшил отступ между строками */
 }
 
 /* Увеличиваем отступ между строками */
 .handwriting .line:first-child {
-    margin-bottom: 20px; /* Увеличили с 20px до 40px */
+    margin-bottom: 30px; /* Увеличили отступ после первой строки */
+    padding-top: 15px; /* Добавили отступ сверху для опускания слова */
 }
 
 .handwriting span {
@@ -122,7 +123,7 @@ body {
 
 /* Уменьшаем шрифт только для первой строки (Путешествие) */
 .handwriting .line:first-child span {
-    font-size: 0.85em; /* Уменьшаем размер шрифта на 15% */
+    font-size: 0.85em;
 }
 
 /* Ускоренная анимация букв */
@@ -135,14 +136,15 @@ body {
 /* Для мобильных устройств */
 @media (max-width: 768px) {
     .handwriting {
-        font-size: clamp(3rem, 10vw, 5rem);
+        font-size: clamp(2.5rem, 10vw, 4.5rem);
         line-height: 0.95;
         margin-bottom: 15px;
         letter-spacing: 0.5px;
     }
     
     .handwriting .line:first-child {
-        margin-bottom: 20px; /* Меньший отступ на мобильных */
+        margin-bottom: 25px;
+        padding-top: 10px;
     }
     
     .handwriting .line:first-child span {
@@ -156,13 +158,14 @@ body {
 
 @media (max-width: 480px) {
     .handwriting {
-        font-size: clamp(2.5rem, 11vw, 4rem);
+        font-size: clamp(2.2rem, 11vw, 4rem);
         line-height: 0.9;
         letter-spacing: 0.3px;
     }
     
     .handwriting .line:first-child {
-        margin-bottom: 25px; /* Ещё меньше на маленьких экранах */
+        margin-bottom: 20px;
+        padding-top: 8px;
     }
     
     .handwriting .line:first-child span {
@@ -1680,6 +1683,7 @@ document.head.appendChild(styleSheet);
 
 </body>
 </html>
+
 
 
 
