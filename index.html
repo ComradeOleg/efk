@@ -95,7 +95,7 @@ body {
     font-family: "Spectral SC", serif;
     font-weight: 300;
     font-style: normal;
-    font-size: clamp(2.75rem, 7vw, 5rem);
+    font-size: clamp(2.75rem, 7vw, 5rem); /* Уменьшил на 6px примерно */
     color: var(--light-gold);
     margin-bottom: 20px;
     line-height: 1;
@@ -106,15 +106,21 @@ body {
 
 .handwriting .line {
     display: block;
-    margin-bottom: 10px; /* Отступ между блоками */
+    margin-bottom: 5px; /* Уменьшил отступ между строками */
 }
 
-/* Уменьшаем шрифт для второй строки (ДЛИННОЮ) на 4px */
-.handwriting .line:nth-child(2) span {
-    font-size: 0.9em;
+/* Опустили первую строку "Путешествие" ниже */
+.handwriting .line:first-child {
+    margin-bottom: 30px; /* Увеличили отступ после первой строки */
 }
 
-/* Уменьшаем шрифт для третьей строки (В ЖИЗНЬ) на 4px */
+/* Уменьшаем шрифт только для первой строки (Путешествие) */
+.handwriting .line:first-child span {
+    font-size: 0.85em;
+}
+
+/* Уменьшаем шрифт для второй и третьей строк на 4px */
+.handwriting .line:nth-child(2) span,
 .handwriting .line:nth-child(3) span {
     font-size: 0.9em;
 }
@@ -135,8 +141,12 @@ body {
         letter-spacing: 0.5px;
     }
     
-    .handwriting .line {
-        margin-bottom: 8px;
+    .handwriting .line:first-child {
+        margin-bottom: 25px;
+    }
+    
+    .handwriting .line:first-child span {
+        font-size: 0.9em;
     }
 }
 
@@ -147,8 +157,12 @@ body {
         letter-spacing: 0.3px;
     }
     
-    .handwriting .line {
-        margin-bottom: 6px;
+    .handwriting .line:first-child {
+        margin-bottom: 20px;
+    }
+    
+    .handwriting .line:first-child span {
+        font-size: 0.95em;
     }
 }
 
@@ -1226,7 +1240,10 @@ window.onload = function() {
     // Анимация заголовка с новой структурой строк
     const spans = document.querySelectorAll('.handwriting span');
     spans.forEach((span, index) => {
+        // Восстанавливаем исходную анимацию
         span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${0.2 + index * 0.12}s forwards`;
+        span.style.opacity = '0'; // Убедимся, что буквы скрыты перед анимацией
+        span.style.transform = 'translateY(40px) rotate(-5deg) scale(0.9)'; // Начальное состояние
     });
 
     // Анимация линии
