@@ -95,22 +95,27 @@ body {
     font-family: "Spectral SC", serif;
     font-weight: 300;
     font-style: normal;
-    font-size: clamp(2.75rem, 7vw, 5rem); /* Уменьшил на 6px примерно */
+    font-size: clamp(2.75rem, 7vw, 5rem);
     color: var(--light-gold);
-    margin-bottom: 10px;
     line-height: 1;
     font-weight: 400;
     letter-spacing: 1px;
     text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Равные отступы между строками */
 }
-
 .handwriting .line {
     display: block;
 }
 
-/* Опускаем первую строку "Путешествие" ниже - увеличенный отступ */
-.handwriting .line:first-child {
-    margin-bottom: 10px; /* Увеличил отступ после первой строки */
+/* Убираем все старые margin-bottom */
+.handwriting .line:first-child,
+.handwriting .line:nth-child(2),
+.handwriting .line:nth-child(3) {
+    margin-bottom: 0;
 }
 
 /* Уменьшаем шрифт только для первой строки (Путешествие) */
@@ -122,15 +127,6 @@ body {
 .handwriting .line:nth-child(2) span,
 .handwriting .line:nth-child(3) span {
     font-size: 0.80em;
-}
-
-/* Уменьшаем отступ между второй и третьей строками */
-.handwriting .line:nth-child(2) {
-    margin-bottom: 10px; /* Минимальный отступ между "ДЛИННОЮ" и "В ЖИЗНЬ" */
-}
-
-.handwriting .line:nth-child(3) {
-    margin-bottom: 0; /* Без отступа после третьей строки */
 }
 
 /* Ускоренная анимация букв */
@@ -145,9 +141,8 @@ body {
     .handwriting {
         font-size: clamp(2.5rem, 10vw, 4.5rem);
         line-height: 0.95;
-        margin-bottom: 15px;
         letter-spacing: 0.5px;
-        gap: 15px; /* Чуть меньше отступ на планшетах */
+        gap: 12px; /* Чуть меньше отступ на планшетах */
     }
         
     .handwriting .line:first-child span {
@@ -165,15 +160,7 @@ body {
         font-size: clamp(2.2rem, 11vw, 4rem);
         line-height: 0.9;
         letter-spacing: 0.3px;
-        gap: 12px; /* Еще меньше отступ на маленьких экранах */
-    }
-    
-    .handwriting .line:first-child {
-        margin-bottom: 30px; /* Увеличенный отступ на маленьких экранах */
-    }
-    
-    .handwriting .line:nth-child(2) {
-        margin-bottom: 3px;
+        gap: 10px; /* Еще меньше отступ на маленьких экранах */
     }
     
     .handwriting .line:first-child span {
@@ -1315,6 +1302,7 @@ document.head.appendChild(styleSheet);
 </noscript>
 </body>
 </html>
+
 
 
 
