@@ -97,7 +97,7 @@ body {
     font-style: normal;
     font-size: clamp(2.75rem, 7vw, 5rem); /* Уменьшил на 6px примерно */
     color: var(--light-gold);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     line-height: 1;
     font-weight: 400;
     letter-spacing: 1px;
@@ -115,18 +115,18 @@ body {
 
 /* Уменьшаем шрифт только для первой строки (Путешествие) */
 .handwriting .line:first-child span {
-    font-size: 0.85em;
+    font-size: 0.75em;
 }
 
 /* Уменьшаем шрифт для второй и третьей строк на 4px */
 .handwriting .line:nth-child(2) span,
 .handwriting .line:nth-child(3) span {
-    font-size: 0.9em;
+    font-size: 0.80em;
 }
 
 /* Уменьшаем отступ между второй и третьей строками */
 .handwriting .line:nth-child(2) {
-    margin-bottom: 5px; /* Минимальный отступ между "ДЛИННОЮ" и "В ЖИЗНЬ" */
+    margin-bottom: 8px; /* Минимальный отступ между "ДЛИННОЮ" и "В ЖИЗНЬ" */
 }
 
 .handwriting .line:nth-child(3) {
@@ -1321,5 +1321,6 @@ document.head.appendChild(styleSheet);
 </noscript>
 </body>
 </html>
+
 
 
