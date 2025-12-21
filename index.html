@@ -69,7 +69,7 @@ body {
     z-index: -1;
     opacity: 0;
     animation: fadeInBg 1.5s ease 0.3s forwards;
-    background: linear-gradient(rgba(10, 21, 32, 0.85), rgba(10, 21, 32, 0.9)), 
+    background: linear-gradient(rgba(10, 21, 32, 0.85), rgba(10, 21, 32, 0.9)),
                 url('https://konyukhov.ru/wp-content/uploads/2021/03/MG_8309s.jpg') center/cover no-repeat;
     transition: filter 1.2s ease-out;
 }
@@ -90,12 +90,12 @@ body {
     position: relative;
 }
 
-/* Заголовок с новым шрифтом Sail */
+/* Заголовок с новым шрифтом Spectral SC */
 .handwriting {
     font-family: "Spectral SC", serif;
     font-weight: 300;
     font-style: normal;
-    font-size: clamp(2.75rem, 7vw, 5rem); /* Уменьшил на 6px примерно */
+    font-size: clamp(2.75rem, 7vw, 5rem);
     color: var(--light-gold);
     margin-bottom: 20px;
     line-height: 1;
@@ -106,24 +106,17 @@ body {
 
 .handwriting .line {
     display: block;
-    margin-bottom: 5px; /* Уменьшил отступ между строками */
+    margin-bottom: 10px; /* Отступ между блоками */
 }
 
-/* Увеличиваем отступ между строками */
-.handwriting .line:first-child {
-    margin-bottom: 30px; /* Увеличили отступ после первой строки */
-    padding-top: 15px; /* Добавили отступ сверху для опускания слова */
+/* Уменьшаем шрифт для второй строки (ДЛИННОЮ) на 4px */
+.handwriting .line:nth-child(2) span {
+    font-size: 0.9em;
 }
 
-.handwriting span {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(50px);
-}
-
-/* Уменьшаем шрифт только для первой строки (Путешествие) */
-.handwriting .line:first-child span {
-    font-size: 0.85em;
+/* Уменьшаем шрифт для третьей строки (В ЖИЗНЬ) на 4px */
+.handwriting .line:nth-child(3) span {
+    font-size: 0.9em;
 }
 
 /* Ускоренная анимация букв */
@@ -142,17 +135,8 @@ body {
         letter-spacing: 0.5px;
     }
     
-    .handwriting .line:first-child {
-        margin-bottom: 25px;
-        padding-top: 10px;
-    }
-    
-    .handwriting .line:first-child span {
-        font-size: 0.9em; /* Меньшее уменьшение на мобильных */
-    }
-    
     .handwriting .line {
-        margin-bottom: -12px;
+        margin-bottom: 8px;
     }
 }
 
@@ -163,17 +147,8 @@ body {
         letter-spacing: 0.3px;
     }
     
-    .handwriting .line:first-child {
-        margin-bottom: 20px;
-        padding-top: 8px;
-    }
-    
-    .handwriting .line:first-child span {
-        font-size: 0.95em; /* Ещё меньшее уменьшение на маленьких экранах */
-    }
-    
     .handwriting .line {
-        margin-bottom: -10px;
+        margin-bottom: 6px;
     }
 }
 
@@ -565,11 +540,9 @@ body {
         height: 200px;
         padding: 40px 30px;
     }
-    
     .expectation-card h3 {
         font-size: 1.4rem;
     }
-    
     .expectation-card p {
         font-size: 1rem;
     }
@@ -581,17 +554,14 @@ body {
         gap: 25px;
         max-width: 600px;
     }
-    
     .expectation-card {
         height: 180px;
         padding: 35px 25px;
     }
-    
     .expectation-card h3 {
         font-size: 1.3rem;
         margin-bottom: 15px;
     }
-    
     .expectation-card p {
         font-size: 0.95rem;
     }
@@ -602,11 +572,9 @@ body {
         height: 160px;
         padding: 30px 20px;
     }
-    
     .expectation-card h3 {
         font-size: 1.2rem;
     }
-    
     .expectation-card p {
         font-size: 0.9rem;
     }
@@ -714,133 +682,11 @@ body {
     .schedule-item { flex-direction: column; }
     .schedule-icon { margin-bottom: 10px; margin-right: 0; }
 }
-
-/* СТИЛИ ДЛЯ СКРЫТОГО СЧЕТЧИКА */
-.hidden-counter {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 11px;
-    color: #aaa;
-    z-index: 9999;
-    opacity: 0.3;
-    transition: opacity 0.3s ease;
-    cursor: pointer;
-    user-select: none;
-    border: 1px solid #333;
-    max-width: 200px;
-    text-align: center;
-}
-
-.hidden-counter:hover {
-    opacity: 0.8;
-}
-
-.hidden-counter .admin-only {
-    font-size: 9px;
-    color: #666;
-    margin-top: 2px;
-    font-style: italic;
-}
-
-.admin-controls {
-    position: fixed;
-    bottom: 60px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 11px;
-    color: #aaa;
-    z-index: 9998;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border: 1px solid #333;
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.admin-controls.active {
-    display: flex;
-    opacity: 0.9;
-}
-
-.admin-btn {
-    background: #444;
-    color: #fff;
-    border: none;
-    padding: 3px 8px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 10px;
-}
-
-.admin-btn:hover {
-    background: #555;
-}
-
-.hidden-counter-triple-click {
-    position: fixed;
-    bottom: 120px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.9);
-    padding: 15px;
-    border-radius: 5px;
-    font-size: 12px;
-    color: #ddd;
-    z-index: 9997;
-    border: 2px solid var(--gold);
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 250px;
-}
-
-.hidden-counter-triple-click.active {
-    display: flex;
-}
-
-.counter-stat {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 3px 0;
-    border-bottom: 1px solid #333;
-}
-
-.counter-stat:last-child {
-    border-bottom: none;
-}
-
-.stat-value {
-    color: var(--gold);
-    font-weight: bold;
-}
-
-/* Ссылка "Статистика" в футере */
-.stats-link {
-    color: #88aacc;
-    font-size: 0.8rem;
-    text-decoration: none;
-    opacity: 0.7;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.stats-link:hover {
-    opacity: 1;
-    color: var(--gold);
-}
-
 </style>
 
 <!-- Отложенная загрузка остальных стилей -->
-<link rel="preload" 
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" 
+<link rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
       as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -854,23 +700,22 @@ body {
 
 <!-- Подключение API Яндекс.Карт -->
 <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_ключ_api&lang=ru_RU" type="text/javascript"></script>
-
 </head>
 
 <body>
-
 <header class="hero-header">
     <!-- Фон с плавным размытием -->
     <div class="hero-background"></div>
     <div class="hero-content">
-        <!-- Заголовок с новым шрифтом Sail -->
+        <!-- Заголовок с новой структурой из 3 блоков -->
         <h1 class="handwriting">
             <span class="line">
                 <span>П</span><span>У</span><span>Т</span><span>Е</span><span>Ш</span><span>Е</span><span>С</span><span>Т</span><span>В</span><span>И</span><span>Е</span>
             </span>
             <span class="line">
-                <span>Д</span><span>Л</span><span>И</span><span>Н</span><span>О</span><span>Ю</span>
-                <span> </span>
+                <span>Д</span><span>Л</span><span>И</span><span>Н</span><span>Н</span><span>О</span><span>Ю</span>
+            </span>
+            <span class="line">
                 <span>В</span>
                 <span> </span>
                 <span>Ж</span><span>И</span><span>З</span><span>Н</span><span>Ь</span>
@@ -883,7 +728,7 @@ body {
         </div>
         <div class="btn-wrapper" style="margin:30px 0 40px;">
             <!-- ОБНОВЛЕННАЯ ССЫЛКА -->
-            <a href="https://mvms.tn-cloud.ru/event/60497AD0387B2DAB3C42426D09C304FC433FD41C/2025-12-25" target="_blank" class="buy-ticket-btn" onclick="countClick()">Купить билет</a>
+            <a href="https://mvms.tn-cloud.ru/event/60497AD0387B2DAB3C42426D09C304FC433FD41C/2025-12-25" target="_blank" class="buy-ticket-btn">Купить билет</a>
         </div>
     </div>
 </header>
@@ -1044,7 +889,6 @@ body {
             </div>
         </div>
     </section>
-
 </main>
 
 <footer style="background:#060f1a;padding:80px 20px;text-align:center;">
@@ -1058,8 +902,7 @@ body {
         </p>
     </div>
     <!-- ОБНОВЛЕННАЯ ССЫЛКА -->
-    <a href="https://mvms.tn-cloud.ru/event/60497AD0387B2DAB3C42426D09C304FC433FD41C/2025-12-25" target="_blank" class="buy-ticket-btn" style="margin-bottom:50px;" onclick="countClick()">Купить билет</a>
-    
+    <a href="https://mvms.tn-cloud.ru/event/60497AD0387B2DAB3C42426D09C304FC433FD41C/2025-12-25" target="_blank" class="buy-ticket-btn" style="margin-bottom:50px;">Купить билет</a>
     <div class="social-links">
         <a href="https://vk.com/kronshtadtkonyukhov?from=groups" target="_blank" class="social-link" title="ВКонтакте">
             <i class="fab fa-vk"></i>
@@ -1071,50 +914,13 @@ body {
             <i class="fas fa-external-link-alt"></i>
         </a>
     </div>
-    
     <div class="social-placeholder">
         Присоединяйтесь к нашим сообществам!
     </div>
-    
     <p style="color:#88aacc;font-size:0.9rem;max-width:600px;margin:30px auto 0;line-height:1.6;padding-top:20px;border-top:1px solid rgba(136,170,204,0.2);">
         © 2025 Иммерсивная выставка Фёдора Конюхова «Путешествие длиною в жизнь». Все права защищены.
     </p>
 </footer>
-
-<!-- СКРЫТЫЙ СЧЕТЧИК (фиксированный в углу) -->
-<div class="hidden-counter" id="hiddenCounter" onclick="toggleAdminControls()" title="Только для администраторов">
-    <div><span id="hiddenCounterValue">0</span></div>
-</div>
-
-<div class="admin-controls" id="adminControls">
-    <button class="admin-btn" onclick="showCounterStats()">Статистика</button>
-    <button class="admin-btn" onclick="hideAdminControls()">Закрыть</button>
-</div>
-
-<div class="hidden-counter-triple-click" id="counterStats">
-    <h4 style="color: var(--gold); margin-bottom: 10px;">Статистика переходов</h4>
-    <div class="counter-stat">
-        <span>Всего переходов:</span>
-        <span class="stat-value" id="statTotal">0</span>
-    </div>
-    <div class="counter-stat">
-        <span>Сегодня:</span>
-        <span class="stat-value" id="statToday">0</span>
-    </div>
-    <div class="counter-stat">
-        <span>За неделю:</span>
-        <span class="stat-value" id="statWeek">0</span>
-    </div>
-    <div class="counter-stat">
-        <span>За месяц:</span>
-        <span class="stat-value" id="statMonth">0</span>
-    </div>
-    <div class="counter-stat">
-        <span>Последний переход:</span>
-        <span class="stat-value" id="statLast">-</span>
-    </div>
-    <button class="admin-btn" onclick="closeCounterStats()">Закрыть</button>
-</div>
 
 <!-- Ленивая загрузка JavaScript -->
 <script>
@@ -1150,7 +956,6 @@ function toggleExpectation(index) {
         animation: fadeInModal 0.3s ease forwards;
         padding: 20px;
     `;
-    
     modal.innerHTML = `
         <div style="
             background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(8, 18, 30, 0.98));
@@ -1181,7 +986,6 @@ function toggleExpectation(index) {
                 border-radius: 50%;
                 transition: background 0.3s;
             ">×</button>
-            
             <h3 style="
                 color: var(--light-gold);
                 font-family: 'Playfair Display', serif;
@@ -1189,14 +993,12 @@ function toggleExpectation(index) {
                 margin-bottom: 30px;
                 text-align: center;
             ">${titles[index-1]}</h3>
-            
             <p style="
                 color: rgba(248, 245, 240, 0.95);
                 line-height: 1.8;
                 font-size: clamp(1.1rem, 1.8vw, 1.3rem);
                 margin-bottom: 40px;
             ">${descriptions[index-1]}</p>
-            
             <div style="text-align: center;">
                 <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
                     background: linear-gradient(135deg, var(--gold), var(--light-gold));
@@ -1212,9 +1014,8 @@ function toggleExpectation(index) {
             </div>
         </div>
     `;
-    
     document.body.appendChild(modal);
-    
+
     // Добавляем стиль для анимации
     const style = document.createElement('style');
     style.textContent = `
@@ -1240,7 +1041,6 @@ function animateTitleLines() {
         threshold: 0.3,
         rootMargin: '0px 0px -100px 0px'
     });
-    
     sectionTitles.forEach(title => {
         observer.observe(title);
     });
@@ -1253,7 +1053,6 @@ const background = document.querySelector('.hero-background');
 
 window.addEventListener('scroll', function() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
     if (scrollTop > 50) {
         heroHeader.classList.add('scrolled');
         const blurAmount = Math.min(12, 8 + (scrollTop - lastScrollTop) * 0.5);
@@ -1262,7 +1061,6 @@ window.addEventListener('scroll', function() {
         heroHeader.classList.remove('scrolled');
         background.style.filter = 'none';
     }
-    
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 }, { passive: true });
 
@@ -1288,7 +1086,7 @@ const sliderImages = [
 function initSlider() {
     slider = document.getElementById('imageSlider');
     dotsContainer = document.getElementById('sliderDots');
-    
+
     // Создаем слайды
     sliderImages.forEach((imgUrl, index) => {
         const slide = document.createElement('div');
@@ -1298,19 +1096,19 @@ function initSlider() {
         `;
         slider.appendChild(slide);
         slides.push(slide);
-        
+
         // Создаем точки
         const dot = document.createElement('button');
         dot.className = 'dot' + (index === 0 ? ' active' : '');
         dot.setAttribute('onclick', `goToSlide(${index})`);
         dotsContainer.appendChild(dot);
     });
-    
+
     // Автоматическое перелистывание
     setInterval(() => {
         nextSlide();
     }, 5000);
-    
+
     // Ленивая загрузка изображений
     lazyLoadImages();
 }
@@ -1333,7 +1131,6 @@ function goToSlide(index) {
 
 function updateSlider() {
     slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-    
     // Обновляем активную точку
     document.querySelectorAll('.dot').forEach((dot, index) => {
         dot.classList.toggle('active', index === currentSlide);
@@ -1383,7 +1180,7 @@ function lazyLoadImages() {
             }
         });
     }, { rootMargin: '50px' });
-    
+
     document.querySelectorAll('.img-placeholder[data-src]').forEach(img => {
         observer.observe(img);
     });
@@ -1397,14 +1194,16 @@ function initMap() {
     }
     
     ymaps.ready(function() {
+        // Новые координаты: 59°59′42″ с. ш., 29°44′13″ в. д.
+        // Преобразовано в десятичные градусы: 59.995000, 29.736944
         const map = new ymaps.Map('map', {
-            center: [59.9875, 29.7600],
+            center: [59.995000, 29.736944], // Обновленные координаты
             zoom: 16,
             controls: ['zoomControl', 'fullscreenControl']
         });
         
         // Добавляем метку
-        const placemark = new ymaps.Placemark([59.9875, 29.7600], {
+        const placemark = new ymaps.Placemark([59.995000, 29.736944], {
             balloonContent: '<strong>"Музей Военно-морской славы России"</strong><br>Кронштадт, ул. Цитадельское шоссе, 18'
         }, {
             preset: 'islands#darkGoldIcon'
@@ -1417,196 +1216,9 @@ function initMap() {
     });
 }
 
-// ==================== СИСТЕМА СЧЕТЧИКА ====================
-
-// Получить текущую дату в формате YYYY-MM-DD
-function getCurrentDate() {
-    const now = new Date();
-    return now.toISOString().split('T')[0];
-}
-
-// Получить данные счетчика из localStorage
-function getCounterData() {
-    try {
-        const data = localStorage.getItem('konyukhovCounter');
-        return data ? JSON.parse(data) : {
-            total: 0,
-            today: 0,
-            todayDate: getCurrentDate(),
-            week: {},
-            month: {},
-            lastClick: null,
-            history: []
-        };
-    } catch (e) {
-        console.error('Ошибка при чтении данных счетчика:', e);
-        return {
-            total: 0,
-            today: 0,
-            todayDate: getCurrentDate(),
-            week: {},
-            month: {},
-            lastClick: null,
-            history: []
-        };
-    }
-}
-
-// Сохранить данные счетчика в localStorage
-function saveCounterData(data) {
-    try {
-        localStorage.setItem('konyukhovCounter', JSON.stringify(data));
-    } catch (e) {
-        console.error('Ошибка при сохранении данных счетчика:', e);
-    }
-}
-
-// Основная функция счетчика (вызывается при клике на кнопку)
+// Пустая функция для совместимости (заменяет старую функцию счетчика)
 function countClick() {
-    const data = getCounterData();
-    const today = getCurrentDate();
-    
-    // Сбрасываем счетчик сегодняшних кликов, если дата изменилась
-    if (data.todayDate !== today) {
-        data.today = 0;
-        data.todayDate = today;
-    }
-    
-    // Обновляем статистику
-    data.total++;
-    data.today++;
-    data.lastClick = new Date().toISOString();
-    
-    // Добавляем в историю
-    data.history.push({
-        timestamp: new Date().toISOString(),
-        date: today
-    });
-    
-    // Ограничиваем историю последними 1000 записей
-    if (data.history.length > 1000) {
-        data.history = data.history.slice(-1000);
-    }
-    
-    // Обновляем статистику за неделю и месяц
-    const weekKey = getWeekKey();
-    const monthKey = getMonthKey();
-    
-    data.week[weekKey] = (data.week[weekKey] || 0) + 1;
-    data.month[monthKey] = (data.month[monthKey] || 0) + 1;
-    
-    // Сохраняем данные
-    saveCounterData(data);
-    
-    // Обновляем отображение счетчиков
-    updateCounterDisplay(data);
-    
-    // Логируем для отладки
-    console.log('Счетчик увеличен. Всего переходов:', data.total, 'Сегодня:', data.today);
-}
-
-// Получить ключ недели (год-неделя)
-function getWeekKey() {
-    const now = new Date();
-    const startOfYear = new Date(now.getFullYear(), 0, 1);
-    const pastDaysOfYear = (now - startOfYear) / 86400000;
-    const weekNumber = Math.ceil((pastDaysOfYear + startOfYear.getDay() + 1) / 7);
-    return `${now.getFullYear()}-W${weekNumber}`;
-}
-
-// Получить ключ месяца (год-месяц)
-function getMonthKey() {
-    const now = new Date();
-    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-}
-
-// Обновить отображение счетчиков на странице
-function updateCounterDisplay(data) {
-    // Основной скрытый счетчик
-    const hiddenCounter = document.getElementById('hiddenCounterValue');
-    if (hiddenCounter) {
-        hiddenCounter.textContent = data.total;
-    }
-    
-    // Обновить статистику в панели администратора
-    updateStatsPanel(data);
-}
-
-// Обновить панель статистики
-function updateStatsPanel(data) {
-    document.getElementById('statTotal').textContent = data.total;
-    document.getElementById('statToday').textContent = data.today;
-    
-    // Вычисляем статистику за неделю и месяц
-    const weekKey = getWeekKey();
-    const monthKey = getMonthKey();
-    
-    const weekTotal = data.week[weekKey] || 0;
-    const monthTotal = data.month[monthKey] || 0;
-    
-    document.getElementById('statWeek').textContent = weekTotal;
-    document.getElementById('statMonth').textContent = monthTotal;
-    
-    if (data.lastClick) {
-        const lastClickDate = new Date(data.lastClick);
-        document.getElementById('statLast').textContent = lastClickDate.toLocaleString('ru-RU');
-    }
-}
-
-// Загрузить данные счетчика при загрузке страницы
-function loadCounter() {
-    const data = getCounterData();
-    updateCounterDisplay(data);
-}
-
-// Показать/скрыть панель администратора
-function toggleAdminControls() {
-    const adminControls = document.getElementById('adminControls');
-    adminControls.classList.toggle('active');
-    
-    // Если открываем панель, обновляем статистику
-    if (adminControls.classList.contains('active')) {
-        const data = getCounterData();
-        updateStatsPanel(data);
-    }
-}
-
-// Скрыть панель администратора
-function hideAdminControls() {
-    document.getElementById('adminControls').classList.remove('active');
-}
-
-// Показать статистику
-function showCounterStats() {
-    const data = getCounterData();
-    updateStatsPanel(data);
-    document.getElementById('counterStats').classList.add('active');
-    document.getElementById('adminControls').classList.remove('active');
-}
-
-// Закрыть статистику
-function closeCounterStats() {
-    document.getElementById('counterStats').classList.remove('active');
-}
-
-// Сбросить счетчик
-function resetCounter() {
-    if (confirm('Вы уверены, что хотите сбросить счетчик? Это действие нельзя отменить.')) {
-        const data = {
-            total: 0,
-            today: 0,
-            todayDate: getCurrentDate(),
-            week: {},
-            month: {},
-            lastClick: null,
-            history: []
-        };
-        
-        saveCounterData(data);
-        updateCounterDisplay(data);
-        alert('Счетчик сброшен!');
-        document.getElementById('adminControls').classList.remove('active');
-    }
+    return false;
 }
 
 // Главная функция инициализации
@@ -1616,26 +1228,23 @@ window.onload = function() {
     spans.forEach((span, index) => {
         span.style.animation = `write 0.8s cubic-bezier(0.23,1,0.32,1) ${0.2 + index * 0.12}s forwards`;
     });
-    
+
     // Анимация линии
     const line = document.querySelector('.title-line');
     line.style.animation = 'line 1s 1.2s forwards';
-    
+
     // Загрузка главного изображения
     loadHeroImage();
-    
+
     // Инициализация слайдера
     initSlider();
-    
+
     // Инициализация карты
     initMap();
-    
+
     // Инициализация анимации полосочек под заголовками
     animateTitleLines();
-    
-    // Загрузка счетчика
-    loadCounter();
-    
+
     // Простая реализация AOS
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1644,20 +1253,9 @@ window.onload = function() {
             }
         });
     }, { threshold: 0.1 });
-    
+
     document.querySelectorAll('[data-aos]').forEach(el => {
         observer.observe(el);
-    });
-    
-    // Добавляем обработчики кликов на все кнопки покупки билетов
-    const ticketButtons = document.querySelectorAll('.buy-ticket-btn');
-    ticketButtons.forEach(button => {
-        // Убедимся, что у кнопки уже нет обработчика onclick
-        if (!button.hasAttribute('onclick')) {
-            button.addEventListener('click', function(e) {
-                countClick();
-            });
-        }
     });
 };
 
@@ -1668,22 +1266,15 @@ styleSheet.textContent = `
         to { width: min(80%, 600px); }
     }
 `;
-
 document.head.appendChild(styleSheet);
-
 </script>
 
 <!-- Дефер загрузка иконок FontAwesome -->
-<link rel="preload" 
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+<link rel="preload"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </noscript>
-
 </body>
 </html>
-
-
-
-
