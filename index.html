@@ -99,7 +99,7 @@ body {
     font-size: clamp(2.75rem, 7vw, 5rem);
     color: var(--light-gold);
     line-height: 1;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 1px;
     text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
     display: flex;
@@ -844,21 +844,16 @@ body {
         <!-- Заголовок с новой структурой из 3 блоков -->
         <h1 class="handwriting">
             <span class="line">
-                <span>П</span><span>У</span><span>Т</span><span>Е</span><span>Ш</span><span>Е</span><span>С</span><span>Т</span><span>В</span><span>И</span><span>Е</span>
+                <span>Н</span><span>А</span><span> </span><span>П</span><span>Р</span><span>Е</span><span>Д</span><span>Е</span><span>Л</span><span>Е</span>
             </span>
             <span class="line">
-                <span>Д</span><span>Л</span><span>И</span><span>Н</span><span>О</span><span>Ю</span>
-            </span>
-            <span class="line">
-                <span>В</span>
-                <span> </span>
-                <span>Ж</span><span>И</span><span>З</span><span>Н</span><span>Ь</span>
+                <span>В</span><span>О</span><span>З</span><span>М</span><span>О</span><span>Ж</span><span>Н</span><span>О</span><span>Г</span><span>О</span>
             </span>
         </h1>
         <div class="title-line" style="height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);width:0;margin:20px auto 30px;animation:line 1s 1.2s forwards;"></div>
         <p class="hero-subtitle">«Формула свободы и счастья» легендарного путешественника в пяти интерактивных пространствах</p>
         <div class="date-location">
-          г. Санкт-Петербург
+          Санкт-Петербург, Петроградская набережная, д. 6/8
         </div>
         <div class="btn-wrapper" style="margin:30px 0 40px;">
             <!-- ИСПРАВЛЕННАЯ ССЫЛКА С ТРЕКИНГОМ -->
@@ -991,7 +986,7 @@ body {
         <div data-aos="fade-up">
             <div id="map"></div>
             <div style="text-align:center;margin-top:20px;color:rgba(248,245,240,0.8);">
-                <p>г. Санкт-Петербург</p>
+                <p>Санкт-Петербург, Петроградская набережная, д. 6/8</p>
                 <p style="margin-top:10px;"></p>
             </div>
         </div>
@@ -1037,7 +1032,7 @@ body {
         Фёдор Конюхов «Формула свободы и счастья»
     </div>
     <div style="font-size:clamp(0.9rem,1.5vw,1.1rem);line-height:1.6;margin-bottom:40px;color:rgba(248,245,240,0.9);">
-        <p>г. Санкт-Петербург</p>
+        <p>Санкт-Петербург, Петроградская набережная, д. 6/8</p>
         <p style="margin-top:10px;font-size:0.9rem;color:rgba(136,170,204,0.8);">
             По всем вопросам звоните: +7 918 077 7061
         </p>
@@ -1456,8 +1451,8 @@ function initMap() {
         });
         
         // Добавляем метку
-        const placemark = new ymaps.Placemark([59.995000, 29.736944], {
-            balloonContent: '<strong>"Музей Военно-морской славы России"</strong><br>Санкт-Петербург'
+        const placemark = new ymaps.Placemark([59.956755, 30.334903], {
+            balloonContent: '<strong>"Галерея Сергиенко"</strong><br>Санкт-Петербург'
         }, {
             preset: 'islands#darkGoldIcon'
         });
