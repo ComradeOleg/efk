@@ -25,39 +25,35 @@ const sliderImages = [
  * Эта функция вызывается при клике на ссылку
  */
 function handleTicketClick(event, finalUrl) {
+    
+    if (typeof ym !== 'undefined') {
+        ym(109327742, 'reachGoal', 'ticket_click');
+    }
+    // ==========================================
+
     // Отображаем уведомление немедленно (перед переходом)
     showCounterNotification('Отслеживаем ваш выбор...');
     
     // Пытаемся отправить запрос на счетчик, но не ждем ответа
-    // Используем navigator.sendBeacon для надежной отправки
     try {
         if (navigator.sendBeacon) {
-            // Отправляем через sendBeacon (надежно работает даже при закрытии страницы)
             navigator.sendBeacon(COUNTER_WEB_APP_URL);
         } else {
-            // Fallback: обычный fetch с no-cors
             fetch(COUNTER_WEB_APP_URL, {
                 method: 'GET',
                 mode: 'no-cors',
-                // Отправляем асинхронно, не ждем ответа
                 keepalive: true
-            }).catch(() => {
-                // Игнорируем ошибки - переход пользователя важнее
-            });
+            }).catch(() => {});
         }
     } catch (e) {
         console.log('Ошибка отправки счетчика (не критично):', e);
     }
     
-    // Обновляем локальный счетчик (асинхронно)
+    // Обновляем локальный счетчик
     setTimeout(() => {
         updateTicketCounter();
     }, 1000);
     
-    // НЕ предотвращаем стандартное поведение - позволим браузеру открыть ссылку
-    // Ссылка уже содержит target="_blank", откроется в новой вкладке
-    
-    // Возвращаем true - разрешаем стандартное поведение ссылки
     return true;
 }
 
