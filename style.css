@@ -1,0 +1,794 @@
+
+:root {
+    --dark-navy: #0a1520;
+    --deep-blue: #0d1b2a;
+    --ocean-deep: #08121e;
+    --gold: #d4af37;
+    --light-gold: #f4e8c1;
+    --warm-white: #f8f5f0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #0a1520;
+    color: var(--warm-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Стили для плавного размытия фона */
+.hero-header {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Фон с размытием при скролле */
+.hero-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0;
+    animation: fadeInBg 1.5s ease 0.3s forwards;
+    background: linear-gradient(rgba(10, 21, 32, 0.85), rgba(10, 21, 32, 0.9)),
+                url('https://konyukhov.ru/wp-content/uploads/2021/03/MG_8309s.jpg') center/cover no-repeat;
+    transition: filter 1.2s ease-out;
+}
+
+.hero-header.scrolled .hero-background {
+    filter: blur(8px) brightness(0.7);
+}
+
+@keyframes fadeInBg {
+    to { opacity: 1; }
+}
+
+.hero-content {
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+/* Заголовок с новым шрифтом Spectral SC - ИСПРАВЛЕНО */
+.handwriting {
+    font-family: "Spectral SC", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    color: var(--light-gold);
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Равные отступы между всеми строками */
+    margin-bottom: 10px;
+}
+
+.handwriting .line {
+    display: block;
+}
+
+/* Убираем все старые margin-bottom для строк */
+.handwriting .line:first-child,
+.handwriting .line:nth-child(2),
+.handwriting .line:nth-child(3) {
+    margin-bottom: 0;
+}
+
+/* Уменьшаем шрифт только для первой строки (Путешествие) */
+.handwriting .line:first-child span {
+    font-size: 0.75em;
+}
+
+/* Уменьшаем шрифт для второй и третьей строк */
+.handwriting .line:nth-child(2) span,
+.handwriting .line:nth-child(3) span {
+    font-size: 0.80em;
+}
+
+/* Ускоренная анимация букв */
+@keyframes write {
+    0% { opacity:0; transform:translateY(40px) rotate(-5deg) scale(0.9); }
+    60% { transform:translateY(-8px) rotate(2deg) scale(1.05); }
+    100% { opacity:1; transform:translateY(0) rotate(0) scale(1); }
+}
+
+/* Для мобильных устройств - ИСПРАВЛЕНО */
+@media (max-width: 768px) {
+    .handwriting {
+        font-size: clamp(2.5rem, 10vw, 4.5rem);
+        line-height: 0.95;
+        letter-spacing: 0.5px;
+        gap: 12px; /* Чуть меньше отступ на планшетах */
+        margin-bottom: 15px;
+    }
+    .handwriting .line:first-child span {
+        font-size: 0.75em;
+    }
+    .handwriting .line:nth-child(2) span,
+    .handwriting .line:nth-child(3) span {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .handwriting {
+        font-size: clamp(2.2rem, 11vw, 4rem);
+        line-height: 0.9;
+        letter-spacing: 0.3px;
+        gap: 10px; /* Еще меньше отступ на маленьких экранах */
+    }
+    /* Убираем все старые margin-bottom для мобильных */
+    .handwriting .line:first-child,
+    .handwriting .line:nth-child(2) {
+        margin-bottom: 0;
+    }
+    .handwriting .line:first-child span {
+        font-size: 0.95em;
+    }
+    .handwriting .line:nth-child(2) span,
+    .handwriting .line:nth-child(3) span {
+        font-size: 0.95em;
+    }
+}
+
+/* Основные стили текста */
+.hero-subtitle {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    margin: 20px 0 30px;
+    opacity: 0;
+    animation: fadeIn 0.4s 1.5s forwards;
+    font-weight: 300;
+}
+
+.date-location {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--gold);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeIn 0.4s 1.7s forwards;
+    font-weight: 400;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Кнопка */
+.buy-ticket-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), var(--light-gold));
+    color: #0b1828;
+    padding: 16px 50px;
+    border-radius: 50px;
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.4s 1.9s forwards;
+}
+
+.buy-ticket-btn:hover {
+    transform: translateY(-5px);
+}
+
+/* Ссылки */
+.text-link {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.text-link:hover {
+    border-bottom-color: var(--gold);
+}
+
+/* Скрыть невидимые элементы */
+[data-aos] {
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+    transform: none;
+}
+
+/* Стили для заголовков с анимированной полосочкой */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    text-align: center;
+    color: var(--light-gold);
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.title-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    width: 0;
+    margin: 15px auto 0;
+    transition: width 1s ease-out;
+    position: relative;
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+}
+
+.section-title.in-view .title-line {
+    opacity: 1;
+    transform: scaleX(1);
+    width: min(60%, 400px);
+}
+
+/* Слайдер */
+.slider-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    height: 500px;
+    position: relative;
+}
+
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: var(--light-gold);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+.slider-nav:hover {
+    background: rgba(0,0,0,0.8);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(212,175,55,0.3);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.dot.active {
+    background: var(--gold);
+}
+
+.more-images {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1.1rem;
+    color: rgba(248,245,240,0.9);
+}
+
+/* Карта */
+#map {
+    height: 400px;
+    border-radius: 15px;
+    border: 2px solid var(--gold);
+    margin-top: 20px;
+}
+
+/* Контейнер для изображения перед текстом */
+.hero-image-container {
+    margin-bottom: 60px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.hero-image-container .img-placeholder {
+    height: 500px;
+    width: 100%;
+    background-position: center 30% !important;
+    background-size: cover !important;
+}
+
+/* Социальные сети */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: var(--light-gold);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(212,175,55,0.3);
+}
+
+.social-link:hover {
+    background: var(--gold);
+    color: #0b1828;
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+.social-placeholder {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: rgba(136, 170, 204, 0.7);
+}
+
+/* Стили для однородных иконок */
+.feature-icon {
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+}
+
+.feature-icon i {
+    font-size: 2.5rem;
+}
+
+/* Стили для карточек с эксклюзивными возможностями */
+.feature-card {
+    background: rgba(255,255,255,0.03);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(212,175,55,0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(212,175,55,0.05), rgba(244,232,193,0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+
+.feature-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    border-color: var(--gold);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(212,175,55,0.1),
+                0 0 30px rgba(212,175,55,0.2);
+    background: rgba(255,255,255,0.05);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+    text-shadow: 0 0 20px rgba(212,175,55,0.5);
+}
+
+.feature-card:hover h3 {
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(212,175,55,0.3);
+}
+
+.feature-icon, .feature-card h3, .feature-card p {
+    position: relative;
+    z-index: 1;
+    transition: all 0.4s ease;
+}
+
+.feature-card h3 {
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.feature-card:hover .feature-icon i {
+    filter: drop-shadow(0 0 8px rgba(212,175,55,0.6));
+}
+
+/* НОВЫЙ БЛОК "Что вас ждет" - увеличенные окошки */
+.expectations-section {
+    padding: 80px 20px;
+    background: rgba(13, 27, 42, 0.5);
+}
+
+.expectations-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.expectation-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 50px 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.expectation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(244, 232, 193, 0.08));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+
+.expectation-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(212, 175, 55, 0.15),
+                0 0 25px rgba(212, 175, 55, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.expectation-card:hover::before {
+    opacity: 1;
+}
+
+.expectation-card h3 {
+    font-size: 1.5rem;
+    color: var(--light-gold);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.expectation-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(248, 245, 240, 0.9);
+    position: relative;
+    z-index: 1;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 1024px) {
+    .expectation-card {
+        height: 200px;
+        padding: 40px 30px;
+    }
+    .expectation-card h3 {
+        font-size: 1.4rem;
+    }
+    .expectation-card p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .expectations-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        max-width: 600px;
+    }
+    .expectation-card {
+        height: 180px;
+        padding: 35px 25px;
+    }
+    .expectation-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+    .expectation-card p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .expectation-card {
+        height: 160px;
+        padding: 30px 20px;
+    }
+    .expectation-card h3 {
+        font-size: 1.2rem;
+    }
+    .expectation-card p {
+        font-size: 0.9rem;
+    }
+}
+
+/* График работы */
+.schedule-section {
+    background: rgba(8, 18, 30, 0.7);
+    padding: 50px 20px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.schedule-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    color: var(--light-gold);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.schedule-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(13, 27, 42, 0.5);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.schedule-item {
+    margin-bottom: 25px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.schedule-item:last-child {
+    margin-bottom: 0;
+}
+
+.schedule-icon {
+    color: var(--gold);
+    font-size: 1.3rem;
+    margin-right: 20px;
+    margin-top: 3px;
+}
+
+.schedule-text {
+    flex: 1;
+}
+
+.schedule-text p {
+    margin-bottom: 8px;
+    color: rgba(248, 245, 240, 0.95);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.schedule-text p:last-child {
+    margin-bottom: 0;
+}
+
+.schedule-highlight {
+    color: var(--light-gold);
+    font-weight: 600;
+}
+
+/* Скелетоны для изображений */
+.img-placeholder {
+    background: linear-gradient(90deg, #0d1b2a 25%, #15273d 50%, #0d1b2a 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 20px;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero-header { min-height: 90vh; }
+    .slider-container { max-width: 100%; }
+    .slide { height: 400px; }
+    .slider-nav { width: 40px; height: 40px; font-size: 1.2rem; }
+    .feature-card { padding: 30px 20px; }
+    .hero-image-container .img-placeholder { height: 400px; }
+    .social-links { gap: 20px; }
+    .social-link { width: 45px; height: 45px; font-size: 1.3rem; }
+    #map { height: 350px; }
+    .schedule-content { padding: 30px 25px; }
+}
+
+@media (max-width: 480px) {
+    .hero-header { min-height: 85vh; padding: 15px; }
+    .buy-ticket-btn { padding: 14px 35px; font-size: 1rem; }
+    .slide { height: 300px; }
+    .slider-nav { width: 35px; height: 35px; font-size: 1rem; }
+    .hero-image-container .img-placeholder { height: 300px; }
+    .social-links { gap: 15px; margin-top: 30px; }
+    .social-link { width: 40px; height: 40px; font-size: 1.2rem; }
+    #map { height: 300px; }
+    .schedule-content { padding: 25px 20px; }
+    .schedule-item { flex-direction: column; }
+    .schedule-icon { margin-bottom: 10px; margin-right: 0; }
+}
+
+/* Стили для счетчика билетов */
+.ticket-counter {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--gold), var(--light-gold));
+    color: #0b1828;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    animation: slideInCounter 0.5s ease;
+}
+
+.ticket-counter:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+    border-color: var(--dark-navy);
+}
+
+.ticket-counter.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.counter-icon {
+    font-size: 1.2rem;
+}
+
+@keyframes slideInCounter {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOutCounter {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .ticket-counter {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 18px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ticket-counter {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Стили для уведомлений */
+@keyframes slideIn {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100px); opacity: 0; }
+}
+
+/* Стили для уведомлений */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--gold);
+    color: #0b1828;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    z-index: 1001;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    font-size: 0.9rem;
+    animation: slideIn 0.3s ease;
+}
