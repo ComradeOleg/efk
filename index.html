@@ -82,10 +82,9 @@
             <!-- ИСПРАВЛЕННАЯ ССЫЛКА С ТРЕКИНГОМ -->
             <button class="buy-ticket-btn" 
                     id="buyTicketBtnTop" 
-                    onclick="window.open('https://individualnyy-predp-f1.timepad.ru/event/4013428/', '_blank')"
+                    onclick="if(typeof ym !== 'undefined') { ym(XXXXXXXX, 'reachGoal', 'ticket_click'); }; window.open('https://individualnyy-predp-f1.timepad.ru/event/4013428/', '_blank')"
                     style="position: relative; display: inline-block;">
                 <a href="" target="_blank" style="color: inherit; text-decoration: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; pointer-events: none;"></a>
-                
                 Купить билет
             </button>
         </div>
@@ -264,8 +263,8 @@
     
     <!-- ИСПРАВЛЕННАЯ ССЫЛКА С ТРЕКИНГОМ -->
     <button class="buy-ticket-btn" 
-            id="buyTicketBtnTop" 
-            onclick="window.open('https://individualnyy-predp-f1.timepad.ru/event/4013428/', '_blank')"
+            id="buyTicketBtnBottom" 
+            onclick="if(typeof ym !== 'undefined') { ym(XXXXXXXX, 'reachGoal', 'ticket_click'); }; window.open('https://individualnyy-predp-f1.timepad.ru/event/4013428/', '_blank')"
             style="position: relative; display: inline-block;">
         <a href="" target="_blank" style="color: inherit; text-decoration: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; pointer-events: none;"></a>
         Купить билет
